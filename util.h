@@ -8,7 +8,7 @@
  *
  * @file: util.h
  *
- * @breaf: 
+ * @breaf: 常见小算法的声明
  *
  * @author: Lei Yunfei(towardstheway@gmail.com)
  *
@@ -16,49 +16,24 @@
  *
  **/
 
+// int类型的数转换为C风格的字符串
+// 1234 -> "1234"
+// -1234 -> "-1234"
+const char *Itoa(char buf[], int value);
 
-#include <algorithm>
-#include <cctype>
+// 将c风格字符串尽可能多的转换为数字
+// [1] "1234" -> 1234
+// [2] "+1234" -> 1234
+// [3] "-1234" -> -1234
+// [4] "    1234" -> 1234 
+// [5] "   -1234" -> 1234 
+// [6] " ab cd 1234def a" -> 1234 
+//
+// 注意:算法不支持八进制和十六进制的问题
+int Atoi(char buf[]);
 
-const char *Itoa(char buf[], int value) {
-    static char digits[19] = {
-        '9', '8', '7', '6', '5', '4', '3', '2', '1', '0',
-        '1', '2', '3', '4', '5', '6', '7', '8', '9'
-    };
-    static const char *zero = digits + 9;
+// 移除字符串中连续的指定的字符(默认是空格' ')
+// 只保留一个空格
+// 例如 world   world! -> hello world!
+const char *RemoveContinuousSpaces(char *buf, char c = ' ');
 
-    char *p = buf;
-    int i = value;
-    do {
-        int lsd = i % 10;
-        i /= 10;
-        *p++ = zero[lsd];
-    } while (i != 0);
-    if (value < 0) {
-        *p++ = '-';
-    }
-    *p = '\0';
-
-    std::reverse(buf, p);
-
-    return buf;
-}
-
-int Atoi(char buf[]) {
-    char *p = buf;
-    int value = 0;
-    int sig = 1;
-    // trim whilespaces at front of string buf
-    while (::isspace(*p)) ++p;
-    if (*p == '-') {
-        sig = -1;
-        ++p;
-    }
-    while (::isdigit(*p)) {
-        value = value * 10;
-        value += *p - '0';
-        ++p;
-    }
-
-    return sig * value;
-}
