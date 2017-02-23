@@ -68,7 +68,7 @@ int Atoi(char buf[]) {
     return sig * value;
 }
 
-const char *RemoveContinuousSpaces(char *buf, char c = ' ') {
+const char *RemoveContinuousSpaces(char *buf, char c) {
     char *p = buf;
     char *q = p + 1;
     // skip begin
@@ -88,10 +88,10 @@ const char *RemoveContinuousSpaces(char *buf, char c = ' ') {
 }
 
 // version 2
-const char *RemoveContinuousSpaces(std::string &str, char c = ' ') {
+const char *RemoveContinuousSpaces(std::string &str, char c) {
     std::string::iterator uniq_iter = std::unique(str.begin(), str.end(),
-            [](const char &c1, const char &c2) {
-            return (c1 == ' ' && c2 == ' ');
+            [c](const char &c1, const char &c2) {
+            return (c1 == c && c2 == c);
             });
     str.erase(uniq_iter, str.end());
 

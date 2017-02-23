@@ -36,4 +36,6 @@ int Atoi(char buf[]);
 // 只保留一个空格
 // 例如 world   world! -> hello world!
 const char *RemoveContinuousSpaces(char *buf, char c = ' ');
+// version 2
+const char *RemoveContinuousSpaces(std::string &str, char c = ' ');
 
