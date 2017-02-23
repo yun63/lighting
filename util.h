@@ -39,3 +39,8 @@ const char *RemoveContinuousSpaces(char *buf, char c = ' ');
 // version 2
 const char *RemoveContinuousSpaces(std::string &str, char c = ' ');
 
+// 生成全排列的算法
+std::vector<std::string> Perm(std::string &);
+
+// 字符串s中长度为m的子串的全排列
+std::vector<std::string> Perm(std::string &s, std::size_t m);

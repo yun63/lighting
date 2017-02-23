@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <cctype>
 #include <string>
+#include <vector>
 
 const char *Itoa(char buf[], int value) {
     static char digits[19] = {
@@ -97,4 +98,32 @@ const char *RemoveContinuousSpaces(std::string &str, char c) {
 
     return str.c_str();
 }
+
+std::vector<std::string> Perm(std::string &s) {
+    std::vector<std::string> perms;
+    std::sort(s.begin(), s.end());
+    do {
+        perms.push_back(s);
+    } while (std::next_permutation(s.begin(), s.end()));
+
+    return perms;
+}
+
+std::vector<std::string> Perm(std::string &s, std::size_t m) {
+    std::vector<std::string> perms;
+    if (m > s.size()) {
+        return perms;
+    }
+    std::string substr;
+    do {
+        substr = s.substr(0, m);
+        auto it = std::find(perms.begin(), perms.end(), substr);
+        if (it == perms.end()) {
+            perms.push_back(substr);
+        }
+    } while (std::next_permutation(s.begin(), s.end()));
+
+    return perms;
+}
+
 
