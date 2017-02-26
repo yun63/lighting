@@ -73,7 +73,7 @@ const char *RemoveContinuousSpaces(char *buf, char c) {
     char *p = buf;
     char *q = p + 1;
     // skip begin
-    while (*p == c && *q == c) {
+    while (!(*p == c && *q == c)) {
         ++p;
         ++q;
     }
@@ -126,4 +126,33 @@ std::vector<std::string> Perm(std::string &s, std::size_t m) {
     return perms;
 }
 
+
+char *reverse(char *str, int begin, int end) {
+    char *p = str + begin;
+    char *q = str + end;
+    while (p < q) {
+        std::swap(*p, *q);
+        ++p;
+        --q;
+    }
+    return str;
+}
+
+void movn(char *str, int pos, int n) {
+    if (pos + n > strlen(str)) {
+        char *p = new char[pos+n+1];
+        strcpy(p, str);
+        delete []str;
+        str = p;
+    }
+
+    int epos = strlen(str);
+    for (int i = epos; i >= pos; i--) {
+        str[i + n] = str[i];
+    }
+
+    for (int i = pos; i < pos + n; ++i) {
+        str[i] = '_';
+    }
+}
 

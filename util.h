@@ -44,3 +44,7 @@ std::vector<std::string> Perm(std::string &);
 
 // 字符串s中长度为m的子串的全排列
 std::vector<std::string> Perm(std::string &s, std::size_t m);
+
+char *reverse(char *str, int begin, int end);
+
+void movn(char *str, int pos, int n);
