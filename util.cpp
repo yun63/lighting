@@ -22,7 +22,9 @@
 #include <string>
 #include <vector>
 
-const char *Itoa(char buf[], int value) {
+namespace lt {
+
+const char *itoa(char buf[], int value) {
     static char digits[19] = {
         '9', '8', '7', '6', '5', '4', '3', '2', '1', '0',
         '1', '2', '3', '4', '5', '6', '7', '8', '9'
@@ -46,7 +48,7 @@ const char *Itoa(char buf[], int value) {
     return buf;
 }
 
-int Atoi(char buf[]) {
+int atoi(char buf[]) {
     char *p = buf;
     int value = 0;
     int sig = 1;
@@ -67,6 +69,40 @@ int Atoi(char buf[]) {
     }
 
     return sig * value;
+}
+
+double atof(const char *s) {
+    double value = 0.0f;
+    int i = 0;
+    int sign = 1;
+    // skip front spaces
+    for (; isspace(s[i]); ++i);
+    sign = (s[i] == '-') ? -1 : 1;
+    if (s[i] == '+' || s[i] == '-') {
+        ++i;
+    }
+
+    // 整数部分
+    for (; isdigit(s[i]) && s[i] != '\0'; ) {
+        value = value + s[i] - '0';
+        ++i;
+    }
+    double value2 = 0.0f;
+    // 跳过小数点
+    if (s[i] == '.') {
+        ++i;
+    }
+    // 小数部分
+    for (double power = 1.0; isdigit(s[i]) && s[i] != '\0'; ) {
+        value = value + (s[i]-'0')/power;
+        power *= 10.0;
+    }
+
+    value *= sign;
+
+    // 科学计数法
+
+    return value;
 }
 
 const char *RemoveContinuousSpaces(char *buf, char c) {
@@ -139,6 +175,22 @@ char *reverse(char *str, int begin, int end) {
     return str;
 }
 
+char *reverse(char *s) {
+    char *p = s;
+    char *q = s;
+    while (*q != '\0') {
+        if (*q == ' ') {
+            reverse(s, p - s, q - s - 1);
+            p = q + 1;
+        }
+        ++q;
+    }
+    reverse(s, p - s, q - s - 1);
+    reverse(s, 0, strlen(s) - 1);
+
+    return s;
+}
+
 void movn(char *str, int pos, int n) {
     int epos = strlen(str);
     for (int i = epos; i >= pos; i--) {
@@ -174,4 +226,6 @@ char *ReplaceSpace(char *str, uint32_t len) {
 
     return str;
 }
+
+} // namespace lt
 

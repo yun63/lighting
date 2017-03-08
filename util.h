@@ -16,12 +16,18 @@
  *
  **/
 
+
+#ifndef  UTIL_INC
+#define  UTIL_INC
+
 #include "basic_types.h"
+
+namespace lt {
 
 // int类型的数转换为C风格的字符串
 // 1234 -> "1234"
 // -1234 -> "-1234"
-const char *Itoa(char buf[], int value);
+const char *itoa(char buf[], int value);
 
 // 将c风格字符串尽可能多的转换为数字
 // [1] "1234" -> 1234
@@ -32,7 +38,10 @@ const char *Itoa(char buf[], int value);
 // [6] " ab cd 1234def a" -> 1234 
 //
 // 注意:算法不支持八进制和十六进制的问题
-int Atoi(char buf[]);
+int atoi(char buf[]);
+
+// 字符串转换成浮点数
+double atof(const char *str);
 
 // 移除字符串中连续的指定的字符(默认是空格' ')
 // 只保留一个空格
@@ -47,8 +56,16 @@ std::vector<std::string> Perm(std::string &);
 // 字符串s中长度为m的子串的全排列
 std::vector<std::string> Perm(std::string &s, std::size_t m);
 
+// 逆序字符串
 char *reverse(char *str, int begin, int end);
+
+// 逆序输出字符串中的单词
+char *reverse(char *str);
 
 void movn(char *str, int pos, int n);
 
 char *ReplaceSpace(char *str, uint32_t len);
+
+} // namespace lt
+
+#endif   // ----- #ifndef UTIL_INC  -----
