@@ -16,6 +16,8 @@
  *
  **/
 
+#include "basic_types.h"
+
 // int类型的数转换为C风格的字符串
 // 1234 -> "1234"
 // -1234 -> "-1234"
@@ -48,3 +50,5 @@ std::vector<std::string> Perm(std::string &s, std::size_t m);
 char *reverse(char *str, int begin, int end);
 
 void movn(char *str, int pos, int n);
+
+char *ReplaceSpace(char *str, uint32_t len);

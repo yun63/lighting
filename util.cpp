@@ -114,6 +114,7 @@ std::vector<std::string> Perm(std::string &s, std::size_t m) {
     if (m > s.size()) {
         return perms;
     }
+    std::sort(s.begin(), s.end());
     std::string substr;
     do {
         substr = s.substr(0, m);
@@ -139,13 +140,6 @@ char *reverse(char *str, int begin, int end) {
 }
 
 void movn(char *str, int pos, int n) {
-    if (pos + n > strlen(str)) {
-        char *p = new char[pos+n+1];
-        strcpy(p, str);
-        delete []str;
-        str = p;
-    }
-
     int epos = strlen(str);
     for (int i = epos; i >= pos; i--) {
         str[i + n] = str[i];
@@ -154,5 +148,30 @@ void movn(char *str, int pos, int n) {
     for (int i = pos; i < pos + n; ++i) {
         str[i] = '_';
     }
+}
+
+char *ReplaceSpace(char *str, uint32_t len) {
+    uint32_t space_count = 0;
+    for (int i = 0; i < len; ++i) {
+        if (str[i] == ' ') ++space_count;
+    }
+
+    uint32_t new_len = len + 2 * space_count;
+    int i = len - 1;
+    int j = new_len - 1;
+    while (j >= 0 && j >= 0) {
+        if (str[i] == ' ') {
+            str[j--] = '0';
+            str[j--] = '2';
+            str[j--] = '%';
+            i--;
+        } else {
+            str[j--] = str[i--];
+        }
+    }
+
+    str[new_len] = '\0';
+
+    return str;
 }
 
