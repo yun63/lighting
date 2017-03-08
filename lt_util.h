@@ -20,6 +20,9 @@
 #ifndef  LT_UTIL_INC
 #define  LT_UTIL_INC
 
+#include <vector>
+#include <string>
+
 #include "basic_types.h"
 
 namespace lt {

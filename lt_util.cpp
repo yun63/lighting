@@ -6,7 +6,7 @@
 
 /**
  *
- * @file: lt_util.h
+ * @file: lt_util.cpp
  *
  * @breaf:  常见算法的实现
  *
@@ -19,6 +19,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cmath>
 #include <string>
 #include <vector>
 
@@ -87,21 +88,34 @@ double atof(const char *s) {
         value = value + s[i] - '0';
         ++i;
     }
-    double value2 = 0.0f;
     // 跳过小数点
     if (s[i] == '.') {
         ++i;
     }
     // 小数部分
-    for (double power = 1.0; isdigit(s[i]) && s[i] != '\0'; ) {
+    for (double power = 10.0; isdigit(s[i]) && s[i] != '\0'; ++i) {
         value = value + (s[i]-'0')/power;
         power *= 10.0;
     }
-
     value *= sign;
-
     // 科学计数法
+    if (s[i] == 'e' || s[i] == 'E') {
+        double eval = 0.0;
+        ++i;
+        sign = (s[i] == '-') ? -1 : 1;
+        if (s[i] == '-' || s[i] == '+') {
+            ++i;
+        }
+        for (; isdigit(s[i]) && s[i] != '\0'; ++i) {
+            eval = 10.0 * eval + s[i] - '0';
+        }
+        value = (sign == -1) ? value/pow(10.0, eval) : value * pow(10.0, eval);
+    }
 
+    if (s[i] != '\0') {
+        return 0.0f;
+    }
+    
     return value;
 }
 
