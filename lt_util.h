@@ -20,8 +20,10 @@
 #ifndef  LT_UTIL_INC
 #define  LT_UTIL_INC
 
+#include <cstdlib>
 #include <vector>
 #include <string>
+#include <cassert>
 
 #include "basic_types.h"
 
@@ -68,6 +70,27 @@ char *reverse(char *str);
 void movn(char *str, int pos, int n);
 
 char *ReplaceSpace(char *str, uint32_t len);
+
+// 生成[0, range)之间的随机数
+int random(int range) {
+    assert(range > 0);
+    return std::rand() % range;
+}
+
+int random(int low, int high) {
+    if (low > high) std::swap(low, high);
+    return low + random(high - low);
+}
+
+template <class T>
+void random_shuffle(std::vector<T> &array) {
+    typedef typename std::vector<T>::size_type size_type;
+    size_type n = array.size();
+    for (size_type i = 0; i < n; ++i) {
+        size_type index = lt::random(i, n);
+        std::swap(array[i], array[index]);
+    }
+}
 
 } // namespace lt
 
