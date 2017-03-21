@@ -23,6 +23,10 @@
 #include <cstdint>
 #include <sstream>
 
+#ifdef TEST
+#include <iostream>
+#endif
+
 #include "lt_node.h"
 #include "noncopyable.h"
 #include "lt_exception.h"
@@ -113,6 +117,11 @@ public:
      * @return 
      */
     LinkNode<T> *reverse();
+
+    /**
+     * @brief 按格式打印单链表
+     */
+    void Print() const;
 
 private:
     void checkindex(int index) const;
@@ -242,8 +251,36 @@ void List<T>::clear() {
 
 template<class T>
 LinkNode<T> *List<T>::reverse() {
+    LinkedPtr prev = NULL;
+    LinkedPtr cur = head_->next;
+    while (cur != NULL) {
+        LinkedPtr n = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = n;
+    }
+    head_->next = prev;
     return head_;
 }
+
+template<class T>
+void List<T>::Print() const {
+    LinkedPtr p = head_->next;
+    printf("HEAD");
+    while (p != NULL) {
+        printf(" -> %d", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
+#ifdef TEST
+template<class T>
+std::ostream &operator << (std::ostream &os, const List<T> &list) {
+    list.Print();
+    return os;
+}
+#endif
 
 
 } // namespace lt
