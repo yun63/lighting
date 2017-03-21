@@ -225,13 +225,18 @@ void List<T>::insert_after(const T &elem, int pos) {
 
 template<class T>
 void List<T>::clear() {
-    LinkedPtr p = head_->next;
-    while (p != NULL) {
-        LinkedPtr n = p->next;
+//    LinkedPtr p = head_->next;
+//    while (p != NULL) {
+//        LinkedPtr n = p->next;
+//        delete p;
+//        p = n;
+//    }
+//    head_->next = NULL;
+    while (head_->next) {
+        LinkedPtr p = head_->next;
+        head_->next = p->next;
         delete p;
-        p = n;
     }
-    head_->next = NULL;
     size_ = 0;
 }
 
