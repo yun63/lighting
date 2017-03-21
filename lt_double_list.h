@@ -20,6 +20,9 @@
 #ifndef  LT_DOUBLE_LIST_INC
 #define  LT_DOUBLE_LIST_INC
 
+#include "lt_node.h"
+#include "lt_exception.h"
+
 namespace lt {
 
 template<class T>
