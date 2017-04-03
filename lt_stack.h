@@ -30,6 +30,7 @@ namespace lt {
 
 /*
 
+利用单链表实现的栈
 #include "lt_list.h"
 
 template<class T>
