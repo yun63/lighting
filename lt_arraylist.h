@@ -68,7 +68,7 @@ public:
      * @param value
      */
     void clear(const T &value) {
-        for (uint32_t i = 0; i < num_of_cols_*num_of_cols_; i++) {
+        for (uint32_t i = 0; i < num_of_rows_*num_of_cols_; i++) {
             data_[i] = value;
         }
     }
