@@ -32,9 +32,9 @@ template<class T=char>
 class Array2D : public noncopyable {
 public:
     Array2D(uint32_t row, uint32_t col)
-    : num_of_rows_(row)
-    , num_of_cols_(col)
-    , data_(new T[row*col]) {}
+        : num_of_rows_(row)
+        , num_of_cols_(col)
+        , data_(new T[row*col]) {}
 
     virtual ~Array2D () {
         delete []data_;
@@ -45,30 +45,45 @@ public:
      *
      * @return 
      */
-    inline const uint32_t row() const { return num_of_rows_; }
+    inline const uint32_t row() const {
+        return num_of_rows_;
+    }
     /**
      * @brief return number of columns of this array
      *
      * @return 
      */
-    inline const uint32_t col() const { return num_of_cols_; }
+    inline const uint32_t col() const {
+        return num_of_cols_;
+    }
 
     /**
      * @brief return the value by the given(row, col);
      *
      */
-    inline T &operator()(int row, int col) { return data_[row*num_of_rows_+col]; }
-    inline const T&operator()(int row, int col) const { return data_[row*num_of_cols_+col]; }
+    inline T &operator()(int row, int col) {
+        return data_[row*num_of_rows_+col];
+    }
 
-    inline T *operator[](int row) { return &(data_[row*num_of_cols_]); }
-    inline const T *operator[](int row) const { return &(data_[row*num_of_cols_]); }
+    inline const T&operator()(int row, int col) const {
+        return data_[row*num_of_cols_+col];
+    }
+
+    inline T *operator[](int row) {
+        return &(data_[row*num_of_cols_]);
+    }
+
+    inline const T *operator[](int row) const {
+        return &(data_[row*num_of_cols_]);
+    }
     /**
      * @brief clear the array by a given value
      *
      * @param value
      */
     void clear(const T &value) {
-        for (uint32_t i = 0; i < num_of_rows_*num_of_cols_; i++) {
+        uint32_t num_array = num_of_rows_ * num_of_cols_;
+        for (uint32_t i = 0; i < num_array; i++) {
             data_[i] = value;
         }
     }
