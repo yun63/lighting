@@ -98,10 +98,25 @@ public:
     bool empty() const { return front_ == rear_; }
     int  size() const { return size_; }
     void clear();
-
+    /**
+     * @brief 入队
+     */
     void push(const T &elem);
+    /**
+     * @brief 出队 对空队列操作，引发异常
+     */
     T pop();
+    /**
+     * @brief 取队头元素 对空队列操作，引发异常
+     *
+     * @return 队头元素
+     */
     T &front() const;
+    /**
+     * @brief 取队尾元素 对空队列操作，引发异常
+     *
+     * @return 队尾元素
+     */
     T &back() const;
 
 private:
@@ -186,6 +201,7 @@ T &Queue<T>::back() const {
     }
     return rear_->data;
 }
+
 
 } // namespace lt
 
