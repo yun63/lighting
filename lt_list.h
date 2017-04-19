@@ -124,7 +124,7 @@ public:
     void Print() const;
 
 private:
-    void checkindex(int index) const;
+    void valid_index_check(int index) const;
 
     LinkNode<T> *head_;
     uint32_t size_;
@@ -145,7 +145,7 @@ List<T>::~List() {
 }
 
 template<class T>
-void List<T>::checkindex(int index) const {
+void List<T>::valid_index_check(int index) const {
     if (index < 0 || index > size_) {
         std::ostringstream s;
         s << "out of range: index = " <<  index << ", size = " << size_;
@@ -155,7 +155,7 @@ void List<T>::checkindex(int index) const {
 
 template<class T>
 LinkNode<T> *List<T>::get(int pos) const {
-    checkindex(pos);
+    valid_index_check(pos);
     int i = 0;
     LinkedPtr p = head_;
     while (i != pos && p != NULL) {
@@ -218,7 +218,7 @@ T List<T>::pop_back() {
 
 template<class T>
 void List<T>::insert_after(const T &elem, int pos) {
-    checkindex(pos);
+    valid_index_check(pos);
     LinkedPtr p = head_;
     int i = 0;
     while (i != pos && p != NULL) {
