@@ -33,14 +33,22 @@ static int kTotalCardsCount = 54;
 
 
 enum Category {
-    Invalid,               // 无效牌型
-    Single,                // 单牌(A)
-    Double,                // 对子(AA)
-    Triple,                // 三张(AAA)
-    SingleChain,           // 顺子(34567)
-    DoubleChain,           // 连对(334455)
-    TripleChain,           // 三连(333444)
-    TriplePlusSingle,      // 三带一(3334)
+    // 无效牌型
+    Invalid,
+    // 单牌(A)
+    Single,
+    // 对子(AA)
+    Double,
+    // 三张(AAA)
+    Triple,
+    // 顺子(34567)
+    SingleChain,
+    // 连对(334455)
+    DoubleChain,
+    // 三连(333444)
+    TripleChain,
+    // 三带一(3334)
+    TriplePlusSingle,
     TriplePlusDouble,      // 三带二(33344)
     TripleChainPlusSingle, // 飞机带翅膀(33344456)
     TripleChainPlusDouble, // 飞机带翅膀(3334445566)
@@ -151,38 +159,125 @@ public:
      * @return true 是三带二; false 不是三带二
      */
     static bool is_triple_plus_double(const std::vector<short> &cards);
-    // 判断顺子
+    /**
+     * @brief 判断顺子
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是顺子；false 不是顺子
+     */
     static bool is_single_chain(const std::vector<short> &cards);
-    // 判断连对
+    /**
+     * @brief 判断连对(334455)
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是连对；false不是连对
+     */
     static bool is_double_chain(const std::vector<short> &cards);
-    // 判断三顺
+    /**
+     * @brief 判断三顺(333444555)
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是三顺；false不是三顺
+     */
     static bool is_triple_chain(const std::vector<short> &cards);
-    // 判断飞机带2单
+    /**
+     * @brief 判断飞机带2张单牌
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是飞机带2单；false不是飞机带2单
+     */
     static bool is_triple_chain_plus_single(const std::vector<short> &cards);
-    // 判断飞机2对
+    /**
+     * @brief 判断飞机带2个对子
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是飞机带2对；false不是飞机带2对
+     */
     static bool is_triple_chain_plus_double(const std::vector<short> &cards);
-    // 判断四带2单
+    /**
+     * @brief 判断4带2单
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是4带2单；false 不是4带2单
+     */
     static bool is_quadruple_plus_single(const std::vector<short> &cards);
-    // 判断四带2对
+    /**
+     * @brief 判断4带2对
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是4带2对；false 不是4带2对
+     */
     static bool is_quadruple_plus_double(const std::vector<short> &cards);
-    // 判断炸弹
+    /**
+     * @brief 判断炸弹
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是炸弹；false 不是炸弹
+     */
     static bool is_bomb(const std::vector<short> &cards);
-    // 判断王炸
+    /**
+     * @brief 判断王炸
+     *
+     * @param cards 输入序列
+     *
+     * @return true 是王炸；false 不是王炸
+     */
     static bool is_rocket(const std::vector<short> &cards);
-
-    // 是否是指定类型的牌
+    /**
+     * @brief 判断给定的牌序列是否是指定的牌型
+     *
+     * @param cards 输入序列
+     * @param category 指定的牌型
+     *
+     * @return  true cards序列是category牌型； false 不是
+     */
     static bool is_category(const std::vector<short> &cards, Category category);
-
-    // 从input里抽取count张牌
+    /**
+     * @brief 从input里收取count张牌
+     *
+     * @param input 输入序列
+     * @param count 要抽取多少张牌
+     *
+     * @return 抽出来的牌集合
+     */
     static std::vector<short> extra_cards(std::vector<short> &input, int count);
-    
+    /**
+     * @brief 根据输入序列提取牌型
+     *
+     * @param sequce 输入序列
+     *
+     * @return 牌型
+     */
     static Category trait_category(const std::vector<short> &sequce);
 
 private:
     static bool is_same(const std::vector<short> &cards);
     static bool is_same(const std::vector<short> &cards, int from, int n);
-
+    /**
+     * @brief 校验参数
+     *
+     * @param cards 牌序列
+     * @param from 序列的起始位置
+     * @param n from后的n个位置
+     *
+     * @return true 校验通过；false 校验失败
+     */
     static bool verify(const std::vector<short> &cards, int from , int n);
+    /**
+     * @brief 判断是否是序列
+     */
+    static bool is_sequence(const std::vector<short> &cards);
+    static bool is_sequence(const std::vector<short> &cards, int step);
+    static bool is_sequence(const std::vector<short> &cards, int from, int step);
+    static bool is_sequence(const std::vector<short> &cards, int from, int to, int step);
 };
 
 } // namespace poker
