@@ -32,7 +32,7 @@ public:
     virtual const char *what() const throw();
     const char *StackTrace() const throw();
 
-private:
+protected:
     std::string message_;
     std::string stack_;
 };

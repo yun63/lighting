@@ -28,6 +28,8 @@ struct LinkNode {
         : data(), next(nullptr) {}
     LinkNode(const T &elem)
         : data(elem), next(nullptr) {}
+    LinkNode(const T &elem, LinkNode<T> *n)
+        : data(elem), next(n) {}
     ~LinkNode() {
         next = nullptr;
     }
@@ -41,12 +43,23 @@ struct DoubleNode {
         : data(), prev(nullptr), next(nullptr) {}
     DoubleNode(const T &elem)
         : data(elem), prev(nullptr), next(nullptr) {}
+    DoubleNode(const T &elem, DoubleNode<T> *p, DoubleNode<T> *n)
+        : data(elem), prev(p), next(n) {}
     ~DoubleNode() {
         prev = next = nullptr;
     }
     T  data;
     LinkNode<T> *prev;
     LinkNode<T> *next;
+};
+
+template<class T>
+struct BintreeNode {
+    explicit BintreeNode(const T &elem, BintreeNode<T> *l = nullptr, BintreeNode<T> *r = nullptr)
+        : data(elem), left(l), right(r) {}
+    T data;                              // 数据域
+    BintreeNode<T> *left;                // 左孩子结点
+    BintreeNode<T> *right;               // 右孩子结点
 };
 
 } // namespace lt
