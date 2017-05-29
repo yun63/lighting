@@ -24,7 +24,7 @@
 
 struct Telegram;
 
-template<class E>
+template<class Entity>
 class State : public nonecopyable {
 public:
     virtual ~State();
@@ -33,19 +33,19 @@ public:
      *
      * @param e 实体
      */
-    virtual void Enter(E *e) = 0;
+    virtual void Enter(Entity *e) = 0;
     /**
      * @brief State更新方法
      *
      * @param e 实体
      */
-    virtual void Excute(E *e) = 0;
+    virtual void Excute(Entity *e) = 0;
     /**
      * @brief 当退出该State时调用
      *
      * @param e 实体
      */
-    virtual void Exit(E *e) = 0;
+    virtual void Exit(Entity *e) = 0;
     /**
      * @brief 当接收到来自message dispatcher的消息时执行
      *
@@ -53,7 +53,7 @@ public:
      *
      * @return 
      */
-    virtual bool OnMessage(E *e) = 0;
+    virtual bool OnMessage(Entity *e) = 0;
 
 private:
     /* data */
