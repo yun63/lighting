@@ -8,11 +8,23 @@
  *
  * @file: lt_list.h
  *
- * @breaf: 单链表的实现
+ * @breaf: 单链表及循环链表的实现
  *
  * @author: Lei Yunfei(towardstheway@gmail.com)
  *
  * @create: 2017/03/11 00时21分09秒
+ *
+ * @modify: 
+ *
+ *  1. 循环链表的实现
+ *
+ *  @author: Lei Yunfei(towardstheway@gmail.com)
+ *
+ *  @date: 2017/06/16 15时25分58秒
+ *
+ *  2. 双端链表的实现
+ *
+ *  @author: Lei Yunfei(towardstheway@gmail.com)
  *
  **/
 
@@ -281,6 +293,41 @@ std::ostream &operator << (std::ostream &os, const List<T> &list) {
     return os;
 }
 #endif
+
+
+/// ---------------------------
+
+template<class T>
+class CircularList : public noncopyable {
+    typedef LinkNode<T>* LinkedPtr;
+public:
+    CircularList();
+    virtual ~CircularList();
+
+    int size() const { return size_; }
+
+private:
+    LinkNode<T> *head_;
+    uint32_t size_;
+};
+
+
+template<class T>
+CircularList<T>::CircularList()
+    : head_(new LinkNode<T>()) , size_(0) {
+    head_->next = head_;
+}
+
+template<class T>
+CircularList<T>::~CircularList() {
+    while (head_->next != head_) {
+        LinkedPtr n = head_->next;
+        head_->next = n->next;
+        delete n;
+    }
+    delete head_;
+    head_ = NULL;
+}
 
 
 } // namespace lt

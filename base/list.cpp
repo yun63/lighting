@@ -86,5 +86,8 @@ int main(int argc, char *argv[])
     lt::LinkNode<std::shared_ptr<Resource>> *sr = res_pool.get(1);
     printf("%p\n", sr->data.get());
     assert(res_pool.size() == 1);
+
+    lt::CircularList<int> clist;
+    printf("%d\n", clist.size());
     return 0;
 }
