@@ -303,10 +303,17 @@ class CircularList : public noncopyable {
 public:
     CircularList();
     virtual ~CircularList();
-
     int size() const { return size_; }
+    LinkedPtr get(int pos) const;
+    LinkedPtr insert(const T &elem, int pos);
+    T erase(int pos);
+    void erase(int begin, int end);
+    void clear();
+    LinkNode<T> *reverse();
 
 private:
+    void valid_index_check(int index) const;
+
     LinkNode<T> *head_;
     uint32_t size_;
 };
