@@ -8,7 +8,7 @@
  *
  * @file: lt_list.h
  *
- * @breaf: 单链表及循环链表的实现
+ * @breaf: 单链表、双端链表及循环链表的实现
  *
  * @author: Lei Yunfei(towardstheway@gmail.com)
  *
@@ -246,13 +246,6 @@ void List<T>::insert_after(const T &elem, int pos) {
 
 template<class T>
 void List<T>::clear() {
-//    LinkedPtr p = head_->next;
-//    while (p != NULL) {
-//        LinkedPtr n = p->next;
-//        delete p;
-//        p = n;
-//    }
-//    head_->next = NULL;
     while (head_->next) {
         LinkedPtr p = head_->next;
         head_->next = p->next;
@@ -295,7 +288,20 @@ std::ostream &operator << (std::ostream &os, const List<T> &list) {
 #endif
 
 
-/// ---------------------------
+/// 双端链表的实现
+
+template<class T>
+class DList {
+public:
+    DList();
+    virtual ~DList();
+
+private:
+    /* data */
+};
+
+/// 循环链表的现实
+/// 循环链表基于单链表实现，尾结点的next指针域指向头结点
 
 template<class T>
 class CircularList : public noncopyable {
