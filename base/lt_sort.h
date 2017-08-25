@@ -83,7 +83,7 @@ public:
         for (size_t i = 0; i < arraylist.size(); ++i) {
             size_t k = i;
             for (size_t j = i + 1; j < arraylist.size(); ++j) {
-                if (comp(arraylist[i], arraylist[j]) == true) {
+                if (comp(arraylist[j], arraylist[k]) == true) {
                     k = j;
                 }
             }
