@@ -49,17 +49,19 @@ bool greater(int a, int b) {
 
 int main(int argc, char *argv[])
 {
-    vector<int> v = {3, 2, 9, 7, 6, 5, 8, 1};
-    lt::SortWrapper::InsertSort<int>(v, DescendingSort<int>());
+//    vector<int> v = {3, 2, 9, 7, 6, 5, 8, 1};
+    int array[] = {3, 2, 9, 7, 6, 5};
+    vector<int> v(array, array + 6);
+    lt::SortWrapper::SelectSort<int>(v, DescendingSort<int>());
     for (auto i : v) {
         std::cout << i << '\t';
     }
     cout << endl;
-    lt::SortWrapper::InsertSort<int>(v);
-    for (auto i : v) {
-        std::cout << i << '\t';
-    }
-    cout << endl;
+//    lt::SortWrapper::InsertSort<int>(v);
+//    for (auto i : v) {
+//        std::cout << i << '\t';
+//    }
+//    cout << endl;
 
     return 0;
 }

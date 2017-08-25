@@ -24,8 +24,8 @@
 #include <vector>
 #include <cassert>
 
+#include "lt_list.h"
 #include "basic_types.h"
-#include "noncopyable.h"
 
 
 namespace lt {
@@ -104,6 +104,47 @@ private:
     uint32_t *rank_;
     uint32_t size_;
 };
+
+
+/**
+ * @brief 合并两个已排好序列的链表到第三个链表
+ *
+ * @param l1 已排序链表
+ * @param l2 已排序链表
+ * @param l 待合并链表
+ *
+ * @return 合并好的链表
+ */
+template<class T>
+List<T> *MergeLinkList(const List<T> *l1, const List<T> *l2, List<T> *l) {
+    uint32_t i = 1;
+    uint32_t j = 1;
+    LinkNode<T> *p, *q;
+    while (i <= l1->size() && j <= l2->size()) {
+        p = l1->get(i);
+        q = l2->get(j);
+        if (p->data <= q->data) {
+            l->push_back(p->data);
+            ++i;
+        } else {
+            l->push_back(q->data);
+            ++j;
+        }
+    }
+    
+    while (i <= l1->size()) {
+        p = l1->get(i);
+        l->push_back(p->data);
+        ++i;
+    }
+    while (j <= l2->size()) {
+        q = l2->get(j);
+        l->push_back(q->data);
+        ++j;
+    }
+
+    return l;
+}
 
 
 } // namespace lt

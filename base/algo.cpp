@@ -63,5 +63,29 @@ int main(int argc, char *argv[])
         std::cout << std::endl;
     }
 
+    lt::List<int> *lst1 = new lt::List<int>();
+    lt::List<int> *lst2 = new lt::List<int>();
+
+    lst1->push_back(2);
+    lst1->push_back(7);
+    lst1->push_back(8);
+    lst1->push_back(15);
+
+    lst2->push_back(3);
+    lst2->push_back(6);
+    lst2->push_back(19);
+    lst2->push_back(23);
+    lst2->push_back(49);
+
+    lt::List<int> *merge_list = new lt::List<int>();
+
+    lt::List<int> *result = lt::MergeLinkList(lst1, lst2, merge_list);
+    merge_list->Print();
+    result->Print();
+
+    delete lst1;
+    delete lst2;
+    delete merge_list;
+
     return 0;
 }
