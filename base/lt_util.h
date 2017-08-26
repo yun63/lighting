@@ -51,9 +51,9 @@ double atof(const char *str);
 // 移除字符串中连续的指定的字符(默认是空格' ')
 // 只保留一个空格
 // 例如 world   world! -> hello world!
-const char *RemoveContinuousSpaces(char *buf, char c = ' ');
+char *RemoveContinuousSpaces(char *buf, char c = ' ');
 // version 2
-const char *RemoveContinuousSpaces(std::string &str, char c = ' ');
+char *RemoveContinuousSpaces(std::string &str, char c = ' ');
 
 // 生成全排列的算法
 std::vector<std::string> Perm(std::string &);

@@ -120,6 +120,8 @@ public:
      * @param end 序列的结束位置
      *
      * @return 轴枢位置
+     *
+     * Ref: std::partition(first, last, pred)
      */
     template<typename T, typename Sequence = std::vector<T> >
     static int 
