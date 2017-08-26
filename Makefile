@@ -10,23 +10,16 @@ include define.mk
 
 ROOT=$(shell pwd)
 
+BASE_DIR=$(ROOT)/base
+
 ## DEBUG开关选项
 DEBUG	:= 1
 
 ## 头文件搜索路径 
-INCPATH ?= -I. -I$(GTEST_DIR)/include -I../protobuf/include
+INCPATH ?= -I. -I$(GTEST_DIR)/include -I$(BASE_DIR)
 
 ## 源代码子目录
-SRCDIRS := thread tinyxml utils 
-
-## 生成目标目录
-OBJ_DIR = object.dir
-
-## 可执行程序目录
-BIN = bin
-
-## 测试代码目录
-TEST_DIR = tests
+SRCDIRS := sample
 
 ## GTest测试框架目录
 GTEST_DIR := ../3rd/gtest-1.7.0
@@ -35,18 +28,10 @@ GTEST_HEADERS := $(GTEST_DIR)/include/gtest/*.h \
 GTEST_SRCS_ := $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
 ## 可执行目标程序
-TARGETS := ../lib/libcommon.a ../lib/libcommon.so
-
-## 可执行测试程序
-TTEST := Test
+TARGETS = list_sample stack_sample queue_sample \
+		  sort_sample algo_sample algo_sample
 
 CPPFLAGS += -isystem $(GTEST_DIR)/include
-
-SOURCES := \
-	$(foreach e, $(addprefix *, $(SRCEXTS)), $(wildcard $(e))) \
-	$(foreach d, $(SRCDIRS), $(wildcard $(addprefix $(d)/*, $(SRCEXTS)))) 
-
-TESTS_CXX := $(foreach e, $(addprefix *, $(SRCEXTS)), $(wildcard $(TEST_DIR)/$(e)))
 
 ifeq ($(DEBUG), 1)
 	CXXFLAGS += -g
@@ -54,77 +39,33 @@ else
 	CXXFLAGS += -O2
 endif
 
-OBJECTS := $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(basename $(SOURCES))))
-PROTO_INC := $(patsubst %.proto, %.pb.h,  $(wildcard pb/*.proto))
-PROTO_CXX := $(patsubst %.proto, %.pb.cc, $(wildcard pb/*.proto))
-PROTO_OBJS := $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(basename $(PROTO_CXX))))
-TESTS_OBJS := $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(basename $(TESTS_CXX))))
-
-#$(warning $(SOURCES))
-#$(warning $(OBJECTS))
-
 ## 库文件
-LIBS = -L/usr/local/lib \
-	   -L../lib -lgtest_main -lgtest \
-	   -L../protobuf/lib -lprotobuf \
-	   -lpthread -lm
+LIBS = -lm
 
 .PHONY: clean 
 .SUFFIXES:
 
 all: $(TARGETS)
 
-## 生成所有(.o)文件规则.
-#----------------------------------------
-$(OBJ_DIR)/%.o:%.c
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(MYCFLAGS) $(INCPATH) -c $< -o $@
+list_sample: $(SRCDIRS)/list.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MYCFLAGS) $(INCPATH)
 
-$(OBJ_DIR)/%.o:%.cc
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) -c $< -o $@
+stack_sample: $(SRCDIRS)/stack.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MYCFLAGS) $(INCPATH)
 
-$(OBJ_DIR)/%.o:%.cpp
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) -c $< -o $@
+queue_sample: $(SRCDIRS)/queue.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MYCFLAGS) $(INCPATH)
 
-$(OBJ_DIR)/%.o:%.cxx
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) -c $< -o $@
+sort_sample: $(SRCDIRS)/sort.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MYCFLAGS) $(INCPATH)
 
-%.o:%.c
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) -c $< -o $@
-
-%.o:%.cpp 
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) -c $< -o $@
-
-%.o:%.cc
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) -c $< -o $@
-
-%.pb.cc: %.proto
-	../protobuf/bin/protoc -I=pb/ --cpp_out=pb/ $<
-
-../lib/libcommon.a : $(PROTO_CXX) $(PROTO_OBJS) $(OBJECTS)
-	$(AR) $(ARFLAGS) $@ $(PROTO_OBJS) $(OBJECTS)
-	$(RANLIB) $@
-
-../lib/libcommon.so : $(PROTO_OBJS) $(OBJECTS) | $(PROTO_CXX)
-	$(LINK) -fPIC --shared $(PROTO_OBJS) $(OBJECTS) -o $@ $(INCPATH) $(LIBS)
-
-$(TTEST): $(TESTS_OBJS)
-	$(LINK) -o $@ $^ $(LIBS) -L../lib -lcommon
-
-game-server : $(OBJ_DIR)/main.o
-	$(LINK) -o $@ $^ $(LIBS) -L../lib -lcommon
+algo_sample: $(SRCDIRS)/algo.cpp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MYCFLAGS) $(INCPATH)
 
 #-------------------------------------
 clean:
 	-rm -f *~ core *.core
-	-rm -rf $(OBJ_DIR) 
 	-rm -f $(TARGETS)
-	-rm -f $(TTEST)
-
-install:
-	-cp -f $(TARGETS) ../lib
+	-rm -rf *.dSYM
 
 #############################################################################
