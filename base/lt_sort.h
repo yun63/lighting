@@ -98,9 +98,9 @@ public:
      * @param arraylist 待排数据列
      * @param comp 仿函数，用于比较两个待排元素的大小
      */
-    template <typename T, typename CompPred>
+    template<typename T, typename Sequence = std::vector<int>, typename CompPred>
     static void
-    MergeSort(vector<T> &arraylist, CompPred comp) {
+    MergeSort(Sequence &arraylist, CompPred comp) {
     }
     /**
      * @brief 希尔排序
@@ -108,13 +108,45 @@ public:
      * @param arraylist 待排数据列
      * @param comp 仿函数，用于比较两个待排元素的大小
      */
-    template <typename T, typename CompPred>
+    template<typename T, typename Sequence = std::vector<T>, typename CompPred>
     static void
     ShellSort(vector<T> &arraylist, CompPred comp) {
     }
-    template <typename T, typename CompPred>
+    /**
+     * @brief  划分序列为两部分,返回轴枢位置,该位置前半部分均小于轴枢，后半部分均大于轴枢
+     *
+     * @param arraylist 序列
+     * @param begin 序列的起始位置
+     * @param end 序列的结束位置
+     *
+     * @return 轴枢位置
+     */
+    template<typename T, typename Sequence = std::vector<T> >
+    static int 
+    Partition(Sequence &arraylist, int begin, int end) {
+        int pivot = arraylist[begin];
+        while (begin <= end) {
+            while (begin <= end && arraylist[end] > pivot) {
+                --end;
+            }
+            arraylist[begin] = arraylist[end];
+            while (begin < end && arraylist[begin] <= pivot) {
+                ++begin;
+            }
+            arraylist[end] = arraylist[begin];
+        }
+        arraylist[begin] = pivot;
+        return begin;
+    }
+    /**
+     * @brief  快速排序
+     *
+     * @param arraylist 待排数据列
+     * @param comp 仿函数，用于比较两个待排元素的大小
+     */
+    template<typename T, typename Sequence = std::vector<T>, typename CompPred>
     static void
-    QuickSort(vector<T> &arraylist, CompPred comp) {
+    QuickSort(Sequence &arraylist, CompPred comp) {
     }
 
 };
