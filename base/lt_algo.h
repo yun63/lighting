@@ -101,9 +101,9 @@ public:
     }
 
 private:
+    uint32_t size_;
     uint32_t *sets_;
     uint32_t *rank_;
-    uint32_t size_;
 };
 
 
@@ -156,7 +156,6 @@ List<T> *MergeLinkList(const List<T> *l1, const List<T> *l2, List<T> *l) {
  * http://v.atob.site/kmp-next.html
  */
 void compute_nextval(const char *p, int next[]) {
-    int n = strlen(p);
     next[0] = -1;
     int j = 0;
     int k = -1;
