@@ -17,7 +17,7 @@
  **/
 
 
-#include "lt_algo.h"
+#include "../base/lt_algo.h"
 
 #include <iostream>
 #include <fstream>
@@ -86,6 +86,11 @@ int main(int argc, char *argv[])
     delete lst1;
     delete lst2;
     delete merge_list;
+
+    const char *s = "leiyunfei";
+    const char *p = "fei";
+
+    std::cout << lt::KMP_search(s, p) << std::endl;
 
     return 0;
 }

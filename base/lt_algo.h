@@ -23,6 +23,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <cstring>
 
 #include "lt_list.h"
 #include "basic_types.h"
@@ -144,6 +145,66 @@ List<T> *MergeLinkList(const List<T> *l1, const List<T> *l2, List<T> *l) {
     }
 
     return l;
+}
+
+/**
+ * @brief 计算KMP算法nextval数组
+ *
+ * @param p 模式匹配串
+ * @param next[]
+ *
+ * http://v.atob.site/kmp-next.html
+ */
+void compute_nextval(const char *p, int next[]) {
+    int n = strlen(p);
+    next[0] = -1;
+    int j = 0;
+    int k = -1;
+    while (j < strlen(p) - 1) {
+        if (k == -1 || p[j] == p[k]) {
+            ++j;
+            ++k;
+            if (p[j] != p[k]) {
+                next[j] = k;
+            } else {
+                next[j] = next[k];
+            }
+        } else {
+            k = next[k];
+        }
+    }
+}
+
+/**
+ * @brief KMP模式匹配算法
+ *
+ * @param s 目标串
+ * @param p 模式子串
+ *
+ * @return 模式子串在目标串s中的配置位置 -1表示p不是s的子串
+ *
+ * http://blog.csdn.net/v_july_v/article/details/7041827
+ *
+ */
+int KMP_search(const char *s, const char *p) {
+    int i = 0;
+    int j = 0;
+    int n = strlen(s);
+    int m = strlen(p);
+    int next[m];
+    compute_nextval(p, next);
+    while (i < n && j < m) {
+        if (j == -1 || s[i] == p[j]) {
+            ++i;
+            ++j;
+        } else {
+            j = next[j];
+        }
+    }
+    if (j == m) {
+        return i - j;
+    }
+    return -1;
 }
 
 
