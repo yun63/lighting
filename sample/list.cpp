@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
     lt::List<std::shared_ptr<Resource>> res_pool;
     std::shared_ptr<Resource> sa(new Resource());
     res_pool.push_back(sa);
-    typedef typename std::shared_ptr<Resource> * SmartResType;
+//  typedef typename std::shared_ptr<Resource> * SmartResType;
     lt::LinkNode<std::shared_ptr<Resource>> *sr = res_pool.get(1);
     printf("%p\n", sr->data.get());
     assert(res_pool.size() == 1);
