@@ -146,7 +146,7 @@ char *RemoveContinuousSpaces(std::string &str, char c) {
             });
     str.erase(uniq_iter, str.end());
 
-    return str.c_str();
+    return const_cast<char*>(str.c_str());
 }
 
 std::vector<std::string> Perm(std::string &s) {

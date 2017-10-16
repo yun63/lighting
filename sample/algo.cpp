@@ -17,7 +17,7 @@
  **/
 
 
-#include "../base/lt_algo.h"
+#include "lt_algo.h"
 
 #include <iostream>
 #include <fstream>
