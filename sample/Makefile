@@ -7,20 +7,17 @@
 #############################################################################
 
 
-ROOT=$(shell pwd)/..
+include ../define.mk
 
-include $(ROOT)/define.mk
+BASE_DIR = ..
 
-BASE_PATH ?= $(ROOT)/base
-CORE_PATH ?= $(ROOT)/core
-
-LIBS_PATH ?= $(ROOT)/lib
+LIBS_PATH ?= $(BASE_DIR)/lib
 
 ## DEBUG开关选项
-DEBUG	:= 1
+DEBUG := 1
 
 ## 头文件搜索路径 
-INCPATH ?= -I$(GTEST_DIR)/include -I$(BASE_PATH) -I$(CORE_PATH)
+INCPATH = -I$(GTEST_DIR)/include -I$(BASE_DIR)/src#$(addprefix -I, $(HDRS)) 
 
 ## 源代码子目录
 SRCDIRS := .
@@ -65,19 +62,19 @@ $(LIBS_PATH):
 	mkdir $(LIBS_PATH)
 
 $(SAMPLES_PATH)/list_sample: $(SRCDIRS)/list.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) -I$(BASE_PATH) $^ -o $@
+	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
 
 $(SAMPLES_PATH)/stack_sample: $(SRCDIRS)/stack.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) -I$(BASE_PATH) $^ -o $@
+	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
 
 $(SAMPLES_PATH)/queue_sample: $(SRCDIRS)/queue.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) -I$(BASE_PATH) $^ -o $@
+	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
 
 $(SAMPLES_PATH)/sort_sample: $(SRCDIRS)/sort.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) -I$(BASE_PATH) $^ -o $@
+	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
 
 $(SAMPLES_PATH)/algo_sample: $(SRCDIRS)/algo.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) -I$(BASE_PATH) $^ -o $@
+	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
 
 #-------------------------------------
 clean:

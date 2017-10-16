@@ -17,8 +17,8 @@
  **/
 
 
-#include "lt_list.h"
-#include "lt_queue.h"
+#include "base/lt_list.h"
+#include "base/lt_queue.h"
 
 #include <stdio.h>
 #include <cassert>

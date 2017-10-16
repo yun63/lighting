@@ -21,7 +21,7 @@
 #include <cassert>
 #include <memory>
 
-#include "lt_list.h"
+#include <base/lt_list.h>
 
 class Resource : public noncopyable
 {

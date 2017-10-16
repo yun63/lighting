@@ -18,7 +18,9 @@ RANLIB := ranlib
 
 ## 编译器选项
 CFLAGS := -Wall -fPIC
-CXXFLAGS := --std=c++11 -Wall -fPIC
+CXXFLAGS := -Wall --std=c++11 -fPIC
 MYCFLAGS := -DDEBUG
 ARFLAGS := rcs
 
+## 头文件搜索路径
+HDRS :=
