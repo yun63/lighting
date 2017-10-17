@@ -43,7 +43,7 @@ $(LIBS_PATH)/libltxml.so: $(TINYXML_OBJECTS) | $(LIBS_PATH)
 
 #-------------------------------------
 clean:
-	-rm $(LIBS_PATH)/libltxml.so $(LIBS_PATH)/libltxml.a
+	-rm -f $(LIBS_PATH)/libltxml.so $(LIBS_PATH)/libltxml.a
 	-rm -f $(TINYXML_OBJECTS)
 
 #############################################################################
