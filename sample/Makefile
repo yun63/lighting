@@ -44,7 +44,9 @@ else
 endif
 
 ## 库文件
-LIBS = -lm
+LIBS := \
+	-L/usr/lib -L/usr/local/lib \
+	-lm -lpthread
 
 .PHONY: clean 
 .SUFFIXES:
@@ -57,29 +59,49 @@ SAMPLES_TARGETS := $(foreach v, $(SAMPLES), $(SAMPLES_PATH)/$(v))
 
 all: $(SAMPLES_TARGETS)
 
-
 $(LIBS_PATH):
-	mkdir $(LIBS_PATH)
+	@mkdir $(LIBS_PATH)
 
-$(SAMPLES_PATH)/list_sample: $(SRCDIRS)/list.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
+$(SAMPLES_PATH)/list_sample: $(SRCDIRS)/list.o
+	@echo "Linking $@"
+	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
 
-$(SAMPLES_PATH)/stack_sample: $(SRCDIRS)/stack.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
+$(SAMPLES_PATH)/stack_sample: $(SRCDIRS)/stack.o
+	@echo "Linking $@"
+	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
 
-$(SAMPLES_PATH)/queue_sample: $(SRCDIRS)/queue.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
+$(SAMPLES_PATH)/queue_sample: $(SRCDIRS)/queue.o
+	@echo "Linking $@"
+	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
 
-$(SAMPLES_PATH)/sort_sample: $(SRCDIRS)/sort.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
+$(SAMPLES_PATH)/sort_sample: $(SRCDIRS)/sort.o
+	@echo "Linking $@"
+	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
 
-$(SAMPLES_PATH)/algo_sample: $(SRCDIRS)/algo.cpp
-	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATH) $^ -o $@
+$(SAMPLES_PATH)/algo_sample: $(SRCDIRS)/algo.o
+	@echo "Linking $@"
+	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
+
+%.o:%.cpp
+	@echo "Compiling $@"
+	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
+
+%.o:%.cc
+	@echo "Compiling $@"
+	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
+
+%.o:%.cxx
+	@echo "Compiling $@"
+	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
+
+%.o:%.c
+	@echo "Compiling $@"
+	@$(CC) -c $(CFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
 
 #-------------------------------------
 clean:
-	-rm -f *.core
-	-rm -rf $(SAMPLES_PATH)/*.dSYM
-	-rm -f $(SAMPLES_TARGETS)
+	@rm -f *.core *.o
+	@rm -rf $(SAMPLES_PATH)/*.dSYM
+	@rm -f $(SAMPLES_TARGETS)
 
 #############################################################################
