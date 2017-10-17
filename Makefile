@@ -8,18 +8,18 @@
 
 include define.mk
 
-ROOT=$(shell pwd)
+BASE_DIR=$(shell pwd)
 
-BASE_PATH ?= $(ROOT)/base
-CORE_PATH ?= $(ROOT)/core
+BASE_PATH=$(BASE_DIR)/src/base
+CORE_PATH=$(BASE_DIR)/src/core
 
-LIBS_PATH ?= $(ROOT)/lib
+LIBS_PATH ?= $(BASE_DIR)/lib
 
 ## DEBUG开关选项
 DEBUG	:= 1
 
 ## 头文件搜索路径 
-INCPATH ?= -I$(GTEST_DIR)/include -I$(BASE_PATH) -I$(CORE_PATH)
+INCPATH ?= -I$(GTEST_DIR)/include -I$(BASE_DIR)/src#$(addprefix -I, $(HDRS))
 
 ## 源代码子目录
 SRCDIRS := sample
