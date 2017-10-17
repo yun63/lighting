@@ -29,21 +29,24 @@ TINYXML_OBJECTS := $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 all: $(LIBS_PATH)/libltxml.a $(LIBS_PATH)/libltxml.so
 
 $(LIBS_PATH):
-	mkdir $(LIBS_PATH)
+	@mkdir $(LIBS_PATH)
 
 $(LIBS_PATH)/libltxml.a: $(TINYXML_OBJECTS) | $(LIBS_PATH)
-	$(AR) $(ARFLAGS) $@ $^
-	$(RANLIB) $@
+	@echo "Packing $@"
+	@$(AR) $(ARFLAGS) $@ $^
+	@$(RANLIB) $@
 
 $(LIBS_PATH)/libltxml.so: $(TINYXML_OBJECTS) | $(LIBS_PATH)
-	$(LINK) -fPIC --shared -I. $^ -o $@
+	@echo "Packing $@"
+	@$(LINK) -fPIC --shared -I. $^ -o $@
 
 %.o:%.cpp
-	$(CXX) $(CFLAGS) $(MYCFLAGS) -I. -c $< -o $@
+	@echo "Compiling $@"
+	@$(CXX) $(CFLAGS) $(MYCFLAGS) -I. -c $< -o $@
 
 #-------------------------------------
 clean:
-	-rm -f $(LIBS_PATH)/libltxml.so $(LIBS_PATH)/libltxml.a
-	-rm -f $(TINYXML_OBJECTS)
+	@rm -f $(LIBS_PATH)/libltxml.so $(LIBS_PATH)/libltxml.a
+	@rm -f $(TINYXML_OBJECTS)
 
 #############################################################################
