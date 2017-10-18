@@ -17,7 +17,10 @@ LIBS_PATH ?= $(BASE_DIR)/lib
 DEBUG := 1
 
 ## 头文件搜索路径 
-INCPATH = -I$(GTEST_DIR)/include -I$(BASE_DIR)/src#$(addprefix -I, $(HDRS)) 
+INCPATHS = -I$(GTEST_DIR)/include -I$(BASE_DIR)/src#$(addprefix -I, $(HDRS)) 
+
+## 库文件搜索路径及库
+LIBS := $(addprefix -L, $(LIBPATHS)) -L$(LIBS_PATH) -lm -lpthread
 
 ## 源代码子目录
 SRCDIRS := .
@@ -43,12 +46,6 @@ else
 	CXXFLAGS += -O2
 endif
 
-## 库文件
-LIBS := \
-	-L/usr/lib -L/usr/local/lib \
-	-lm -lpthread
-
-.PHONY: clean 
 .SUFFIXES:
 
 COMMON_SOURCES := \
@@ -63,42 +60,43 @@ $(LIBS_PATH):
 	@mkdir $(LIBS_PATH)
 
 $(SAMPLES_PATH)/list_sample: $(SRCDIRS)/list.o
-	@echo "Linking $@"
-	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
+	@echo "-- Generating $@"
+	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
 
 $(SAMPLES_PATH)/stack_sample: $(SRCDIRS)/stack.o
-	@echo "Linking $@"
-	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
+	@echo "-- Generating $@"
+	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
 
 $(SAMPLES_PATH)/queue_sample: $(SRCDIRS)/queue.o
-	@echo "Linking $@"
-	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
+	@echo "-- Generating $@"
+	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
 
 $(SAMPLES_PATH)/sort_sample: $(SRCDIRS)/sort.o
-	@echo "Linking $@"
-	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
+	@echo "-- Generating $@"
+	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
 
 $(SAMPLES_PATH)/algo_sample: $(SRCDIRS)/algo.o
-	@echo "Linking $@"
-	@$(CXX) -o $@ $^ $(INCPATH) $(LIBS)
+	@echo "-- Generating $@"
+	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
 
 %.o:%.cpp
-	@echo "Compiling $@"
-	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
+	@echo "-- Building $@"
+	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
 
 %.o:%.cc
-	@echo "Compiling $@"
-	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
+	@echo "-- Building $@"
+	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
 
 %.o:%.cxx
-	@echo "Compiling $@"
+	@echo "-- Building $@"
 	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
 
 %.o:%.c
-	@echo "Compiling $@"
+	@echo "-- Building $@"
 	@$(CC) -c $(CFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
 
 #-------------------------------------
+.PHONY: clean 
 clean:
 	@rm -f *.core *.o
 	@rm -rf $(SAMPLES_PATH)/*.dSYM

@@ -24,3 +24,6 @@ ARFLAGS := rcs
 
 ## 头文件搜索路径
 HDRS :=
+
+# 库文件搜索路径
+LIBPATHS := /usr/lib /usr/local/lib
