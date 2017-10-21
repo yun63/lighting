@@ -89,11 +89,11 @@ $(SAMPLES_PATH)/algo_sample: $(SRCDIRS)/algo.o
 
 %.o:%.cxx
 	@echo "-- Building $@"
-	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
+	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
 
 %.o:%.c
 	@echo "-- Building $@"
-	@$(CC) -c $(CFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATH) 
+	@$(CC) -c $(CFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
 
 #-------------------------------------
 .PHONY: clean 
