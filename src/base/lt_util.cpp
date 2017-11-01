@@ -119,7 +119,7 @@ double atof(const char *s) {
     return value;
 }
 
-const char *RemoveContinuousSpaces(char *buf, char c) {
+char *RemoveContinuousSpaces(char *buf, char c) {
     char *p = buf;
     char *q = p + 1;
     // skip begin
@@ -139,14 +139,14 @@ const char *RemoveContinuousSpaces(char *buf, char c) {
 }
 
 // version 2
-const char *RemoveContinuousSpaces(std::string &str, char c) {
+char *RemoveContinuousSpaces(std::string &str, char c) {
     std::string::iterator uniq_iter = std::unique(str.begin(), str.end(),
             [c](const char &c1, const char &c2) {
             return (c1 == c && c2 == c);
             });
     str.erase(uniq_iter, str.end());
 
-    return str.c_str();
+    return const_cast<char*>(str.c_str());
 }
 
 std::vector<std::string> Perm(std::string &s) {
@@ -225,7 +225,7 @@ char *ReplaceSpace(char *str, uint32_t len) {
     uint32_t new_len = len + 2 * space_count;
     int i = len - 1;
     int j = new_len - 1;
-    while (j >= 0 && j >= 0) {
+    while (i >= 0 && j >= 0) {
         if (str[i] == ' ') {
             str[j--] = '0';
             str[j--] = '2';

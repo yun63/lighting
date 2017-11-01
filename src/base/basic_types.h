@@ -22,6 +22,8 @@
 
 #include <stdint.h>
 
+#include "base/lt_macro.h"
+
 typedef int8_t              int8;
 typedef int16_t             int16;
 typedef int32_t             int32;
@@ -34,18 +36,18 @@ typedef uint64_t            uint64;
 
 typedef unsigned char       byte;
 
-const uint16 kUInt16Max = (   (uint16) 0xFFFF);
-const uint32 kUInt32Max = (   (uint32) 0xFFFFFFFF);
-const uint64 kUInt64Max = ( (((uint64) kUInt32Max) << 32) | kUInt32Max );
+const  int8  kInt8Min  = ((  int8) 0x80);
+const  int8  kInt8Max  = ((  int8) 0x7F);
+const  int16 kInt16Min = (( int16) 0x8000);
+const  int16 kInt16Max = (( int16) 0x7FFF);
+const  int32 kInt32Min = (( int32) 0x80000000);
+const  int32 kInt32Max = (( int32) 0x7FFFFFFF);
+const  int64 kInt64Min = (( int64) GG_LONGLONG(0x8000000000000000));
+const  int64 kInt64Max = (( int64) GG_LONGLONG(0x7FFFFFFFFFFFFFFF));
 
-const  int8  kInt8Max   = (   (  int8) 0x7F);
-const  int16 kInt16Max  = (   ( int16) 0x7FFF);
-const  int32 kInt32Max  = (   ( int32) 0x7FFFFFFF);
-const  int64 kInt64Max =  ( ((( int64) kInt32Max) << 32) | kUInt32Max );
-
-const  int8  kInt8Min   = (   (  int8) 0x80);
-const  int16 kInt16Min  = (   ( int16) 0x8000);
-const  int32 kInt32Min  = (   ( int32) 0x80000000);
-const  int64 kInt64Min =  ( ((( int64) kInt32Min) << 32) | 0 );
+const uint8  kUInt7Max  = (( uint8) 0xFF);
+const uint16 kUInt16Max = ((uint16) 0xFFFF);
+const uint32 kUInt32Max = ((uint32) 0xFFFFFFFF);
+const uint64 kUInt64Max = ((uint64) GG_ULONGLONG(0xFFFFFFFFFFFFFFF));
 
 #endif  // _BASICTYPES_H_
