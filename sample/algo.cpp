@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     std::map<uint32_t, std::vector<uint32_t>>::const_iterator it = groups.cbegin();
     for (; it != groups.cend(); ++it) {
         std::cout << "group: " << it->first << ",  mermbers: [";
-        for (int i = 0; i < it->second.size(); i++) {
+        for (std::vector<uint32_t>::size_type i = 0; i < it->second.size(); i++) {
             if (i == 0) {
                 std::cout << it->second[i];
             } else {

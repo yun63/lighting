@@ -159,7 +159,7 @@ void compute_nextval(const char *p, int next[]) {
     next[0] = -1;
     int j = 0;
     int k = -1;
-    while (j < strlen(p) - 1) {
+    while (j < (int)strlen(p) - 1) {
         if (k == -1 || p[j] == p[k]) {
             ++j;
             ++k;
