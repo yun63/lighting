@@ -30,11 +30,17 @@ namespace lt {
 
 class Event : public Object {
 public:
-    Event();
-    virtual ~Event();
+    Event(Object &sender)
+        : sender_(sender), canceled_(false) {}
+    virtual ~Event() {}
+    Object &sender() const { return sender_; }
+    bool canceled() const { return canceled_; }
+    void setcanceled(bool cancel) { canceled_ = canceled; }
 
 private:
     /* data */
+    Object &sender_;
+    bool canceled_;
 };
 
 } // namespace lt
