@@ -23,7 +23,7 @@
 #include <sstream>
 
 #include "lt_node.h"
-#include "basic_types.h"
+#include "lt_types.h"
 #include "lt_exception.h"
 
 namespace lt {

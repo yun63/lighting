@@ -25,7 +25,7 @@
 #include <string>
 #include <cassert>
 
-#include "basic_types.h"
+#include "lt_types.h"
 
 namespace lt {
 

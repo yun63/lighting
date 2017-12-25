@@ -20,7 +20,7 @@
 #ifndef  LT_RANDOM_INC
 #define  LT_RANDOM_INC
 
-#include "basic_types.h"
+#include "lt_types.h"
 #include "noncopyable.h"
 
 namespace lt {
