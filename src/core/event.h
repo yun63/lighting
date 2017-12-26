@@ -23,7 +23,7 @@
 #include <vector>
 #include <stdexcept>
 
-#include "object.h"
+#include "base/object.h"
 
 namespace lt {
 
@@ -32,10 +32,30 @@ class Event : public Object {
 public:
     Event(Object &sender)
         : sender_(sender), canceled_(false) {}
+    /**
+     * @brief 空析构函数
+     */
     virtual ~Event() {}
-    Object &sender() const { return sender_; }
+    /**
+     * @brief 获取本事件的派发对象
+     *
+     * @return  事件派发者
+     */
+    Object &sender() const {
+        return sender_;
+    }
+    /**
+     * @brief 判定事件是否被取消
+     *
+     * @return true:已经取消; false:未取消
+     */
     bool canceled() const { return canceled_; }
-    void setcanceled(bool cancel) { canceled_ = canceled; }
+    /**
+     * @brief 设置事件取消状态
+     *
+     * @param cancel
+     */
+    void set_canceled(bool cancel) { canceled_ = canceled; }
 
 private:
     /* data */
