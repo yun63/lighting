@@ -25,7 +25,7 @@
 
 #include "base/object.h"
 
-namespace lt {
+namespace core {
 
 
 class Event : public Object {
@@ -63,6 +63,6 @@ private:
     bool canceled_;
 };
 
-} // namespace lt
+} // namespace core
 
 #endif   // ----- #ifndef EVENT_INC  -----
