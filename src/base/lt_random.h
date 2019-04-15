@@ -23,6 +23,8 @@
 #include "lt_types.h"
 #include "noncopyable.h"
 
+#include <vector>
+
 namespace lt {
 
 class Random : public noncopyable {
@@ -76,6 +78,87 @@ uint32_t Random::Generate() const {
     }
 
     return Random::seed_ % Random::upper_limit_;
+}
+
+
+/**
+ * Return a float random inside the internal [0, mod]
+ */
+inline float frand(float mod) {
+    double r = static_cast<double>(rand());
+    r /= static_cast<double>(RAND_MAX);
+    return static_cast<float>(r * mod);
+}
+
+/**
+ * Return a random between [0, 10000)
+ *
+ */
+uint32_t rand() {
+    Random rand(10000);
+    return rand.Generate();
+}
+
+/**
+ * @brief Return a random between [0, limit)
+ *
+ * @param limit
+ *
+ * @return  random number
+ */
+uint32_t rand(uint32_t limit) {
+    if (limit == 0) {
+        return 0;
+    }
+
+    Random rand(limit);
+    return rand.Generate();
+}
+
+/**
+ * @brief Return a number between[a, b) if a < b or between [b, a) if a > b
+ *
+ * @param a
+ * @param b
+ *
+ * @return random number between a and b
+ */
+uint32_t rand(uint32_t a, uint32_t b) {
+    if (a == b) {
+        return a;
+    }
+
+    Random rand(::abs(a - b));
+    return std::min(a, b) + rand.Generate();
+}
+
+/**
+ * @brief Set random seed
+ *
+ * @param seed
+ */
+void srand(uint32_t seed) {
+    Random rand;
+    rand.set_seed(seed);
+}
+
+int weighted_random(std::vector<std::pair<int, int>> pool) {
+    int sum = 0;
+    for (size_t i = 0; i < pool.size(); i++) {
+        sum += pool[i].second;
+    }
+
+    int rbase = base::rand(sum);
+    int cur = 0;
+
+    for (auto it = pool.begin(); it != pool.end(); it++) {
+        if (rbase > cur && rbase <= cur + it->second) {
+            return it->first;
+        }
+        cur += it->second;
+    }
+
+    return 0;
 }
 
 
