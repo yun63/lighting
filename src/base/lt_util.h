@@ -290,6 +290,31 @@ std::string tolower(std::string s) {
     return s;
 }
 
+
+#include <string>
+#include <iomanip>
+
+template <typename T, unsigned width, unsigned precision>
+void print_array(T *array,              // array to print_array
+                 int n,                 // number of elements to precision
+                 int row,               // number of elements per row
+                 std::string array_name // array namespace
+                 ) {
+    using std::cout;
+    using std::endl;
+    std::string line(" index | content\n ------+-");
+    cout << "\n\n array \"" << array_name << "\", length " << n << endl << endl;
+    cout << line.append(width * row, '-');
+
+    for (int i = 0; i < n; i++) {
+        if (i % row == 0) {
+            cout << endl << std::setw(6) << i << " | ";
+        }
+        cout << std::setw(width) << std::fixed << std::setprecision(precision) << array[i];
+    }
+    cout << endl << endl;
+}
+
 } // namespace lt
 
 #endif   // ----- #ifndef LT_UTIL_INC  -----
