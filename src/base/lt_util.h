@@ -27,7 +27,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
-
+#include <iomanip>
 
 #include "lt_types.h"
 
@@ -290,16 +290,39 @@ std::string tolower(std::string s) {
     return s;
 }
 
+/**
+ * Return the square of a number
+ */
+template<typename T>
+inline T sqr(const T &v) {
+    return v * v;
+}
 
-#include <string>
-#include <iomanip>
+/*
+ * min or max extended functions
+ */
+template<typename T>
+inline T min_of(const T &a, const T &b, const T &c) {
+    return std::min(std::min(a, b), c);
+}
+
+template<typename T>
+inline T min_of(const T &a, const T &b, const T &c, const T &d) {
+    return std::min(min_of(a, b, c), d);
+}
+
+template<typename T>
+inline T max_of(const T &a, const T &b, const T &c) {
+    return std::max(std::max(a, b), c);
+}
+
+template<typename T>
+inline T max_of(const T &a, const T &b, const T &c, const T &d) {
+    return std::max(max_of(a, b, c), d);
+}
 
 template <typename T, unsigned width, unsigned precision>
-void print_array(T *array,              // array to print_array
-                 int n,                 // number of elements to precision
-                 int row,               // number of elements per row
-                 std::string array_name // array namespace
-                 ) {
+void PrettyPrintArray(T *array, int n, int row, std::string array_name ) {
     using std::cout;
     using std::endl;
     std::string line(" index | content\n ------+-");
