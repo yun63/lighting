@@ -205,14 +205,6 @@ T List<T>::pop_back() {
     if (empty()) {
         throw Exception("pop from empty list");
     }
-    /*
-    LinkedPtr p = head_;
-    while (p->next) {
-        p = p->next;
-    }
-    T elem = p->data;
-    delete p;
-    */
     LinkedPtr p = head_;
     LinkedPtr prev = NULL;
     int i = 0;
@@ -300,47 +292,8 @@ private:
     /* data */
 };
 
-/// 循环链表的现实
-/// 循环链表基于单链表实现，尾结点的next指针域指向头结点
-
-template<class T>
-class CircularList : public noncopyable {
-    typedef LinkNode<T>* LinkedPtr;
-public:
-    CircularList();
-    virtual ~CircularList();
-    int size() const { return size_; }
-    LinkedPtr get(int pos) const;
-    LinkedPtr insert(const T &elem, int pos);
-    T erase(int pos);
-    void erase(int begin, int end);
-    void clear();
-    LinkNode<T> *reverse();
-
-private:
-    void valid_index_check(int index) const;
-
-    LinkNode<T> *head_;
-    uint32_t size_;
-};
-
-
-template<class T>
-CircularList<T>::CircularList()
-    : head_(new LinkNode<T>()) , size_(0) {
-    head_->next = head_;
-}
-
-template<class T>
-CircularList<T>::~CircularList() {
-    while (head_->next != head_) {
-        LinkedPtr n = head_->next;
-        head_->next = n->next;
-        delete n;
-    }
-    delete head_;
-    head_ = NULL;
-}
+// 循环链表的现实
+// 循环链表基于单链表实现，尾结点的next指针域指向头结点
 
 
 } // namespace lt
