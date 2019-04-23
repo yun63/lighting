@@ -66,16 +66,16 @@ int main(int argc, char *argv[])
     lt::List<int> *lst1 = new lt::List<int>();
     lt::List<int> *lst2 = new lt::List<int>();
 
-    lst1->push_back(2);
-    lst1->push_back(7);
-    lst1->push_back(8);
-    lst1->push_back(15);
+    lst1->PushBack(2);
+    lst1->PushBack(7);
+    lst1->PushBack(8);
+    lst1->PushBack(15);
 
-    lst2->push_back(3);
-    lst2->push_back(6);
-    lst2->push_back(19);
-    lst2->push_back(23);
-    lst2->push_back(49);
+    lst2->PushBack(3);
+    lst2->PushBack(6);
+    lst2->PushBack(19);
+    lst2->PushBack(23);
+    lst2->PushBack(49);
 
     lt::List<int> *merge_list = new lt::List<int>();
 

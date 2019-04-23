@@ -122,25 +122,25 @@ List<T> *MergeLinkList(const List<T> *l1, const List<T> *l2, List<T> *l) {
     uint32_t j = 1;
     LinkNode<T> *p, *q;
     while (i <= l1->size() && j <= l2->size()) {
-        p = l1->get(i);
-        q = l2->get(j);
+        p = l1->Get(i);
+        q = l2->Get(j);
         if (p->data <= q->data) {
-            l->push_back(p->data);
+            l->PushBack(p->data);
             ++i;
         } else {
-            l->push_back(q->data);
+            l->PushBack(q->data);
             ++j;
         }
     }
     
     while (i <= l1->size()) {
-        p = l1->get(i);
-        l->push_back(p->data);
+        p = l1->Get(i);
+        l->PushBack(p->data);
         ++i;
     }
     while (j <= l2->size()) {
-        q = l2->get(j);
-        l->push_back(q->data);
+        q = l2->Get(j);
+        l->PushBack(q->data);
         ++j;
     }
 

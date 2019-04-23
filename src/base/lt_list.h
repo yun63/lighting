@@ -74,7 +74,10 @@ public:
      *
      * @return 
      */
-    LinkedPtr Get(bool (*SearchFunc)(LinkedPtr *node, const T &value)) const;
+
+    LinkedPtr Get(int pos) const;
+
+    LinkedPtr Get(bool (*SearchFunc)(LinkedPtr node, const T &value)) const;
     /**
      * @brief 获取第pos个结点, 头结点定义为第0个结点
      *
@@ -192,7 +195,7 @@ LinkNode<T> *List<T>::Get(bool (*SearchFunc)(LinkNode<T> *node, const T &data)) 
 
 template<class T>
 void List<T>::PushFront(const T &elem) {
-    insert_after(elem, 0);
+    InsertAfter(elem, 0);
 }
 
 template<class T>
@@ -210,7 +213,7 @@ T List<T>::PopFront() {
 
 template<class T>
 void List<T>::PushBack(const T &elem) {
-    insert_after(elem, size_);
+    InsertAfter(elem, size_);
 }
 
 template<class T>
@@ -297,20 +300,46 @@ std::ostream &operator << (std::ostream &os, const List<T> &list) {
 
 template<class T>
 class DList : public noncopyable {
+private:
+    struct RootNode {
+        RootNode() : head(NULL), tail(NULL), size(0) {}
+        RootNode(DoubleNode<T> *n) : head(n), tail(n), size(1) {}
+        DoubleNode<T>   *head;
+        DoubleNode<T>   *tail;
+        size_t          size;
+    };
+
 public:
     DList();
     virtual ~DList();
 
     bool empty() const {
-        return head_->prev == head_->next;
+        return root_->head == root_->tail;
     }
 
     void Insert(DoubleNode<T> *t, const T &elem);
     DoubleNode<T> *Remove(DoubleNode<T> *e);
 
 private:
-    DoubleNode<T> *head_;
+    RootNode *root_;
 };
+
+
+template<class T>
+DList<T>::DList()
+    : root_(new RootNode()) {}
+
+template<class T>
+DList<T>::~DList() {}
+
+template<class T>
+void DList<T>::Insert(DoubleNode<T> *t, const T &elem) {
+}
+
+template<class T>
+DoubleNode<T> *DList<T>::Remove(DoubleNode<T> *e) {
+}
+
 
 
 // 循环链表的现实

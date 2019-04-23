@@ -60,34 +60,32 @@ int main(int argc, char *argv[])
     assert(lst.size() == 0);
     */
 
-    lst.push_back(1);
-    lst.push_back(2);
-    lst.push_back(3);
-    lst.push_front(100);
+    lst.PushBack(1);
+    lst.PushBack(2);
+    lst.PushBack(3);
+    lst.PushFront(100);
     lst.Print();
 
-    lst.reverse();
+    lst.Reverse();
     lst.Print();
 
 
-    lst.clear();
+    lst.Clear();
     assert(lst.size() == 0);
-    lst.push_front(1);
-    lst.push_back(2);
-    lst.push_back(3);
-    lst.pop_front();
-    lst.pop_back();
+    lst.PushFront(1);
+    lst.PushBack(2);
+    lst.PushBack(3);
+    lst.PopFront();
+    lst.PopBack();
     assert(lst.size() == 1);
 
     lt::List<std::shared_ptr<Resource>> res_pool;
     std::shared_ptr<Resource> sa(new Resource());
-    res_pool.push_back(sa);
+    res_pool.PushBack(sa);
 //  typedef typename std::shared_ptr<Resource> * SmartResType;
-    lt::LinkNode<std::shared_ptr<Resource>> *sr = res_pool.get(1);
+    lt::LinkNode<std::shared_ptr<Resource>> *sr = res_pool.Get(1);
     printf("%p\n", sr->data.get());
     assert(res_pool.size() == 1);
 
-    lt::CircularList<int> clist;
-    printf("%d\n", clist.size());
     return 0;
 }
