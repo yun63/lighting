@@ -74,61 +74,69 @@ public:
      *
      * @return 
      */
-    LinkedPtr get(int pos) const;
+    LinkedPtr Get(bool (*SearchFunc)(LinkedPtr *node, const T &value)) const;
+    /**
+     * @brief 获取第pos个结点, 头结点定义为第0个结点
+     *
+     * @param pos 位置
+     *
+     * @return 
+     */
+
     /**
      * @brief 在链表头部插入新结点
      *
      * @param elem
      */
-    void push_front(const T &elem);
+    void PushFront(const T &elem);
     /**
      * @brief 摘除链表头部结点，并返回该结点的数据域
      *
      * @return 
      */
-    T pop_front();
+    T PopFront();
     /**
      * @brief 从列表尾部插入结点
      *
      * @param elem
      */
-    void push_back(const T &elem);
+    void PushBack(const T &elem);
     /**
      * @brief 摘除链表尾部结点，并返回该结点的数据域
      *
      * @return 
      */
-    T pop_back();
+    T PopBack();
     /**
      * @brief 在指定位置pos后插入新结点
      *
      * @param elem 新结点的数据域
      * @param pos 插入的位置
      */
-    void insert_after(const T &elem, int pos);
+    void InsertAfter(const T &elem, int pos);
     /**
      * @brief 删除指定位置pos的结点，并返回结点的数据域
      *
      * @return 
      */
-    T erase(int pos);
+    T Remove(int pos);
     /**
      * @brief 删除指定范围【begin,end】的所有结点
      *
      * @param begin
      * @param end
      */
-    void erase(int begin, int end);
+    void Remove(int begin, int end);
     /**
      * @brief 清空链表，并释放结点占用的空间
      */
-    void clear();
+    void Clear();
     /**
      * @brief 翻转单链表
      *
      * @return 
      */
-    LinkNode<T> *reverse();
+    LinkNode<T> *Reverse();
 
     /**
      * @brief 按格式打印单链表
@@ -166,7 +174,7 @@ void List<T>::valid_index_check(int index) const {
 }
 
 template<class T>
-LinkNode<T> *List<T>::get(int pos) const {
+LinkNode<T> *List<T>::Get(int pos) const {
     valid_index_check(pos);
     int i = 0;
     LinkedPtr p = head_;
@@ -178,12 +186,17 @@ LinkNode<T> *List<T>::get(int pos) const {
 }
 
 template<class T>
-void List<T>::push_front(const T &elem) {
+LinkNode<T> *List<T>::Get(bool (*SearchFunc)(LinkNode<T> *node, const T &data)) const {
+    return NULL;
+}
+
+template<class T>
+void List<T>::PushFront(const T &elem) {
     insert_after(elem, 0);
 }
 
 template<class T>
-T List<T>::pop_front() {
+T List<T>::PopFront() {
     if (empty()) {
         throw Exception("pop from empty list");
     }
@@ -196,12 +209,12 @@ T List<T>::pop_front() {
 }
 
 template<class T>
-void List<T>::push_back(const T &elem) {
+void List<T>::PushBack(const T &elem) {
     insert_after(elem, size_);
 }
 
 template<class T>
-T List<T>::pop_back() {
+T List<T>::PopBack() {
     if (empty()) {
         throw Exception("pop from empty list");
     }
@@ -221,7 +234,7 @@ T List<T>::pop_back() {
 }
 
 template<class T>
-void List<T>::insert_after(const T &elem, int pos) {
+void List<T>::InsertAfter(const T &elem, int pos) {
     valid_index_check(pos);
     LinkedPtr p = head_;
     int i = 0;
@@ -237,7 +250,7 @@ void List<T>::insert_after(const T &elem, int pos) {
 }
 
 template<class T>
-void List<T>::clear() {
+void List<T>::Clear() {
     while (head_->next) {
         LinkedPtr p = head_->next;
         head_->next = p->next;
@@ -247,7 +260,7 @@ void List<T>::clear() {
 }
 
 template<class T>
-LinkNode<T> *List<T>::reverse() {
+LinkNode<T> *List<T>::Reverse() {
     LinkedPtr prev = NULL;
     LinkedPtr cur = head_->next;
     while (cur != NULL) {
@@ -283,14 +296,22 @@ std::ostream &operator << (std::ostream &os, const List<T> &list) {
 /// 双端链表的实现
 
 template<class T>
-class DList {
+class DList : public noncopyable {
 public:
     DList();
     virtual ~DList();
 
+    bool empty() const {
+        return head_->prev == head_->next;
+    }
+
+    void Insert(DoubleNode<T> *t, const T &elem);
+    DoubleNode<T> *Remove(DoubleNode<T> *e);
+
 private:
-    /* data */
+    DoubleNode<T> *head_;
 };
+
 
 // 循环链表的现实
 // 循环链表基于单链表实现，尾结点的next指针域指向头结点
