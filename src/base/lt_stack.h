@@ -24,6 +24,7 @@
 
 #include "lt_node.h"
 #include "lt_types.h"
+#include "noncopyable.h"
 #include "lt_exception.h"
 
 namespace lt {
@@ -51,7 +52,7 @@ public:
  */
 
 template<class T>
-class Stack {
+class Stack : public noncopyable {
 public:
     Stack () : top_(nullptr), size_(0) {}
     virtual ~Stack ();
