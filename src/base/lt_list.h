@@ -310,17 +310,22 @@ private:
     };
 
 public:
+
     DList();
     virtual ~DList();
 
-    bool empty() const {
-        return root_->head == root_->tail;
-    }
+    bool empty() const { return root_->head == root_->tail; }
+    size_t size() const { return root_->size; }
 
     void Insert(DoubleNode<T> *t, const T &elem);
+    void Insert(const T &elem);
+    void Append(const T &elem);
     DoubleNode<T> *Remove(DoubleNode<T> *e);
+    void Clear();
 
 private:
+    DoubleNode<T> *CreateNode(const T &elem);
+
     RootNode *root_;
 };
 
@@ -330,16 +335,33 @@ DList<T>::DList()
     : root_(new RootNode()) {}
 
 template<class T>
-DList<T>::~DList() {}
+DList<T>::~DList() {
+    Clear();
+    delete root_;
+    root_ = NULL;
+}
+
+template<class T>
+DoubleNode<T> *DList<T>::CreateNode(const T &elem) {
+    return new DoubleNode<T>(elem);
+}
 
 template<class T>
 void DList<T>::Insert(DoubleNode<T> *t, const T &elem) {
+    assert(root_ && root_->head != NULL && root_->tail != NULL);
+}
+
+template<class T>
+void DList<T>::Insert(const T &elem) {
+}
+
+template<class T>
+void DList<T>::Append(const T &elem) {
 }
 
 template<class T>
 DoubleNode<T> *DList<T>::Remove(DoubleNode<T> *e) {
 }
-
 
 
 // 循环链表的现实
