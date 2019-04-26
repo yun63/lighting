@@ -74,18 +74,9 @@ public:
      *
      * @return 
      */
-
     LinkedPtr Get(int pos) const;
 
     LinkedPtr Get(bool (*SearchFunc)(LinkedPtr node, const T &value)) const;
-    /**
-     * @brief 获取第pos个结点, 头结点定义为第0个结点
-     *
-     * @param pos 位置
-     *
-     * @return 
-     */
-
     /**
      * @brief 在链表头部插入新结点
      *
@@ -296,51 +287,90 @@ std::ostream &operator << (std::ostream &os, const List<T> &list) {
 #endif
 
 
-/// 双端链表的实现
+/// 双端循环链表的实现, 类似于std::list
 
 template<class T>
 class DList : public noncopyable {
-private:
-    struct RootNode {
-        RootNode() : head(NULL), tail(NULL), size(0) {}
-        RootNode(DoubleNode<T> *n) : head(n), tail(n), size(1) {}
-        DoubleNode<T>   *head;
-        DoubleNode<T>   *tail;
-        size_t          size;
-    };
-
 public:
     DList();
     virtual ~DList();
-
-    bool empty() const { return root_->head == root_->tail; }
-    size_t size() const { return root_->size; }
-
-    DoubleNode<T> *head() const { return root_->head; }
-    DoubleNode<T> *tail() const { return root_->tail; }
-
-    void Insert(DoubleNode<T> *t, const T &elem);
-    void PushFront(const T &elem);
-    void Append(const T &elem);
-    DoubleNode<T> *Remove(DoubleNode<T> *e);
+    /**
+     * @brief 清空链表，销毁结点, 单保留伪结点
+     */
     void Clear();
+    /**
+     * @brief 双端链表判空
+     *
+     * @return true 空 false 非空
+     */
+    bool empty() const { return _M_node_->prev == _M_node_->next; }
+    /**
+     * @brief 链表长度
+     *
+     * @return 
+     */
+    size_t size() const { return size_; }
+    /**
+     * @brief 返回链表头结点，类似于std::list中begin
+     *
+     * @return 
+     */
+    DoubleNode<T> *head() const { return _M_node_->next; }
+    /**
+     * @brief 返回链表尾结点，类似于std::list中的end
+     *
+     * @return 
+     */
+    DoubleNode<T> *tail() const { return _M_node_; }
+
+    /**
+     * @brief 在指定结点位置前插入新结点
+     *
+     * @param t 指定位置结点
+     * @param elem 新结点的数据域
+     */
+    void Insert(DoubleNode<T> *t, const T &elem);
+    /**
+     * @brief 在链表头部插入新结点
+     *
+     * @param elem 新结点的数据域
+     */
+    void PushFront(const T &elem);
+    /**
+     * @brief 在链表尾部附加新结点
+     *
+     * @param elem 新结点的数据域
+     */
+    void Append(const T &elem);
+    /**
+     * @brief 删除指定的结点
+     *
+     * @param e
+     *
+     * @return 
+     */
+    DoubleNode<T> *Remove(DoubleNode<T> *e);
 
 private:
     DoubleNode<T> *CreateNode(const T &elem);
 
-    RootNode *root_;
+    DoubleNode<T> *_M_node_; // 伪结点
 };
 
 
 template<class T>
-DList<T>::DList()
-    : root_(new RootNode()) {}
+DList<T>::DList() {
+    _M_node = CreateNode();
+    _M_node->next = _M_node_;
+    _M_node->prev = _M_node_;
+    size_ = 0;
+}
 
 template<class T>
 DList<T>::~DList() {
     Clear();
-    delete root_;
-    root_ = NULL;
+    delete _M_node_;
+    _M_node_ = NULL;
 }
 
 template<class T>
@@ -351,50 +381,27 @@ DoubleNode<T> *DList<T>::CreateNode(const T &elem) {
 template<class T>
 void DList<T>::Insert(DoubleNode<T> *t, const T &elem) {
     assert(t != NULL);
-    DoubleNode<T> *p = t->prev;
     DoubleNode<T> *s = CreateNode(elem);
     s->next = t;
+    s->prev = t->prev;
+    t->prev->next = s;
     t->prev = s;
-    s->prev = p;
-    p->next = s;
+    size_++;
 }
 
 template<class T>
 void DList<T>::PushFront(const T &elem) {
-    if (root_->head == NULL) {
-        DoubleNode<T> *s = CreateNode(elem);
-        root_->head = s;
-        root_->tail = s;
-    } else {
-        DoubleNode<T> *p = root_->head;
-        DoubleNode<T> *s = CreateNode(elem);
-        s->next = p;
-        p->prev = s;
-        root_->head = s;
-    }
+    Insert(head(), elem);
 }
 
 template<class T>
 void DList<T>::Append(const T &elem) {
-    if (root_->tail == NULL) {
-        DoubleNode<T> *s = CreateNode(elem);
-        root_->tail = root_->head = s;
-    } else {
-        DoubleNode<T> *s = CreateNode(elem);
-        s->prev = root_->tail;
-        root_->tail->next = s;
-        root_->tail = s;
-    }
+    Insert(tail(), elem);
 }
 
 template<class T>
 DoubleNode<T> *DList<T>::Remove(DoubleNode<T> *e) {
 }
-
-
-// 循环链表的现实
-// 循环链表基于单链表实现，尾结点的next指针域指向头结点
-
 
 } // namespace lt
 
