@@ -310,15 +310,17 @@ private:
     };
 
 public:
-
     DList();
     virtual ~DList();
 
     bool empty() const { return root_->head == root_->tail; }
     size_t size() const { return root_->size; }
 
+    DoubleNode<T> *head() const { return root_->head; }
+    DoubleNode<T> *tail() const { return root_->tail; }
+
     void Insert(DoubleNode<T> *t, const T &elem);
-    void Insert(const T &elem);
+    void PushFront(const T &elem);
     void Append(const T &elem);
     DoubleNode<T> *Remove(DoubleNode<T> *e);
     void Clear();
@@ -348,15 +350,41 @@ DoubleNode<T> *DList<T>::CreateNode(const T &elem) {
 
 template<class T>
 void DList<T>::Insert(DoubleNode<T> *t, const T &elem) {
-    assert(root_ && root_->head != NULL && root_->tail != NULL);
+    assert(t != NULL);
+    DoubleNode<T> *p = t->prev;
+    DoubleNode<T> *s = CreateNode(elem);
+    s->next = t;
+    t->prev = s;
+    s->prev = p;
+    p->next = s;
 }
 
 template<class T>
-void DList<T>::Insert(const T &elem) {
+void DList<T>::PushFront(const T &elem) {
+    if (root_->head == NULL) {
+        DoubleNode<T> *s = CreateNode(elem);
+        root_->head = s;
+        root_->tail = s;
+    } else {
+        DoubleNode<T> *p = root_->head;
+        DoubleNode<T> *s = CreateNode(elem);
+        s->next = p;
+        p->prev = s;
+        root_->head = s;
+    }
 }
 
 template<class T>
 void DList<T>::Append(const T &elem) {
+    if (root_->tail == NULL) {
+        DoubleNode<T> *s = CreateNode(elem);
+        root_->tail = root_->head = s;
+    } else {
+        DoubleNode<T> *s = CreateNode(elem);
+        s->prev = root_->tail;
+        root_->tail->next = s;
+        root_->tail = s;
+    }
 }
 
 template<class T>
