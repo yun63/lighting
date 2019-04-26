@@ -315,7 +315,7 @@ public:
      *
      * @return 
      */
-    DoubleNode<T> *head() const { return _M_node_->next; }
+    DoubleNode<T> *front() const { return _M_node_->next; }
     /**
      * @brief 返回链表尾结点，类似于std::list中的end
      *
@@ -345,24 +345,24 @@ public:
     /**
      * @brief 删除指定的结点
      *
-     * @param e
+     * @param e 要删除的结点
      *
-     * @return 
      */
-    DoubleNode<T> *Remove(DoubleNode<T> *e);
+    void Remove(DoubleNode<T> *e);
 
 private:
     DoubleNode<T> *CreateNode(const T &elem);
 
     DoubleNode<T> *_M_node_; // 伪结点
+    size_t  size_;
 };
 
 
 template<class T>
 DList<T>::DList() {
-    _M_node = CreateNode();
-    _M_node->next = _M_node_;
-    _M_node->prev = _M_node_;
+    _M_node_ = CreateNode(T());
+    _M_node_->next = _M_node_;
+    _M_node_->prev = _M_node_;
     size_ = 0;
 }
 
@@ -371,6 +371,13 @@ DList<T>::~DList() {
     Clear();
     delete _M_node_;
     _M_node_ = NULL;
+}
+
+template<class T>
+void DList<T>::Clear() {
+    for (DoubleNode<T> *cur = front(); cur != tail(); cur = cur->next) {
+        Remove(cur);
+    }
 }
 
 template<class T>
@@ -391,7 +398,7 @@ void DList<T>::Insert(DoubleNode<T> *t, const T &elem) {
 
 template<class T>
 void DList<T>::PushFront(const T &elem) {
-    Insert(head(), elem);
+    Insert(front(), elem);
 }
 
 template<class T>
@@ -400,7 +407,18 @@ void DList<T>::Append(const T &elem) {
 }
 
 template<class T>
-DoubleNode<T> *DList<T>::Remove(DoubleNode<T> *e) {
+void DList<T>::Remove(DoubleNode<T> *e) {
+    assert(e != NULL);
+    assert(e != _M_node_);
+    if (empty()) {
+        std::ostringstream s;
+        s << "remove node from empty list";
+        throw Exception(s.str().c_str());
+    }
+    e->prev->next = e->next;
+    e->next->prev = e->prev;
+    delete e;
+    size_--;
 }
 
 } // namespace lt

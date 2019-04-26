@@ -87,5 +87,9 @@ int main(int argc, char *argv[])
     printf("%p\n", sr->data.get());
     assert(res_pool.size() == 1);
 
+    lt::DList<int> dlist;
+    printf("%zu\n", dlist.size());
+    dlist.Append(2);
+    dlist.Append(3);
     return 0;
 }

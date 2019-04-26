@@ -38,8 +38,6 @@ GTEST_SRCS_ := $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 SAMPLES = list_sample stack_sample queue_sample \
 		  sort_sample algo_sample
 
-CPPFLAGS += -isystem $(GTEST_DIR)/include
-
 ifeq ($(DEBUG), 1)
 	CXXFLAGS += -g
 else
@@ -59,41 +57,40 @@ all: $(SAMPLES_TARGETS)
 $(LIBS_PATH):
 	@mkdir $(LIBS_PATH)
 
-$(SAMPLES_PATH)/list_sample: $(SRCDIRS)/list.o
+$(SAMPLES_PATH)/list_sample:
 	@echo "-- Generating $@"
-	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
+	$(CXX) -g -std=c++11 -Wall -I../src list.cpp -o $@
 
-$(SAMPLES_PATH)/stack_sample: $(SRCDIRS)/stack.o
+$(SAMPLES_PATH)/stack_sample: $(SRCDIRS)/stack.cpp
 	@echo "-- Generating $@"
-	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
+	$(CXX) $(CXXFLAGS) $(INCPATHS) -o $@ $^ $(LIBS)
 
-$(SAMPLES_PATH)/queue_sample: $(SRCDIRS)/queue.o
+$(SAMPLES_PATH)/queue_sample: $(SRCDIRS)/queue.cpp
 	@echo "-- Generating $@"
-	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
+	$(CXX) $(CXXFLAGS) $(INCPATHS) -o $@ $^ $(LIBS)
 
-$(SAMPLES_PATH)/sort_sample: $(SRCDIRS)/sort.o
+$(SAMPLES_PATH)/sort_sample: $(SRCDIRS)/sort.cpp
 	@echo "-- Generating $@"
-	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
+	$(CXX) $(CXXFLAGS) $(INCPATHS) -o $@ $^ $(LIBS)
 
-$(SAMPLES_PATH)/algo_sample: $(SRCDIRS)/algo.o
+$(SAMPLES_PATH)/algo_sample: $(SRCDIRS)/algo.cpp
 	@echo "-- Generating $@"
-	@$(CXX) -o $@ $^ $(INCPATHS) $(LIBS)
+	$(CXX) $(CXXFLAGS) $(INCPATHS) -o $@ $^ $(LIBS)
 
-%.o:%.cpp
+%.o: %.cpp
 	@echo "-- Building $@"
-	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
-
-%.o:%.cc
+	$(CXX) -g -std=c++11 $(INCPATHS) -c $< -o $@
+%.o: %.cc
 	@echo "-- Building $@"
-	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
+	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATHS) -c $< -o $@
 
-%.o:%.cxx
+%.o: %.cxx
 	@echo "-- Building $@"
-	@$(CXX) -c $(CXXFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
+	$(CXX) $(CXXFLAGS) $(MYCFLAGS) $(INCPATHS) -c $< -o $@
 
-%.o:%.c
+%.o: %.c
 	@echo "-- Building $@"
-	@$(CC) -c $(CFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
+	$(CC) $(CFLAGS) $(MYCFLAGS) $(INCPATHS) -c $< -o $@
 
 #-------------------------------------
 .PHONY: clean 

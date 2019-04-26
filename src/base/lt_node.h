@@ -49,8 +49,8 @@ struct DoubleNode {
         prev = next = nullptr;
     }
     T  data;
-    LinkNode<T> *prev;
-    LinkNode<T> *next;
+    DoubleNode<T> *prev;
+    DoubleNode<T> *next;
 };
 
 template<class T>

@@ -45,8 +45,7 @@ $(LIBS_PATH)/libltxml.so: $(TINYXML_OBJECTS) | $(LIBS_PATH)
 
 %.o:%.cpp
 	@echo "-- Building $@"
-	@$(CXX) -c $(CFLAGS) $(MYCFLAGS) $< -o $@ $(INCPATHS) 
-
+	@$(CXX) -c $(CFLAGS) $(MYCFLAGS) $(INCPATHS) $< -o $@
 #-------------------------------------
 .PHONY: clean 
 clean:
