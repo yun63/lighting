@@ -82,7 +82,6 @@ int main(int argc, char *argv[])
     lt::List<std::shared_ptr<Resource>> res_pool;
     std::shared_ptr<Resource> sa(new Resource());
     res_pool.PushBack(sa);
-//  typedef typename std::shared_ptr<Resource> * SmartResType;
     lt::LinkNode<std::shared_ptr<Resource>> *sr = res_pool.Get(1);
     printf("%p\n", sr->data.get());
     assert(res_pool.size() == 1);
@@ -91,5 +90,12 @@ int main(int argc, char *argv[])
     printf("%zu\n", dlist.size());
     dlist.Append(2);
     dlist.Append(3);
+    printf("%zu\n", dlist.size());
+    dlist.PushFront(100);
+    assert(dlist.size() == 3);
+    assert(dlist.front()->data == 100);
+    dlist.Clear();
+    assert(dlist.front() == dlist.tail());
+    assert(dlist.empty());
     return 0;
 }

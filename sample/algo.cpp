@@ -33,7 +33,6 @@ int main(int argc, char *argv[])
     int n = 0;
     input >> n;
 
-
     lt::UnionFind graph(n);
     int gi = 0;
     int bi = 0;

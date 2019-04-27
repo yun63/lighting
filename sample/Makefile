@@ -57,9 +57,9 @@ all: $(SAMPLES_TARGETS)
 $(LIBS_PATH):
 	@mkdir $(LIBS_PATH)
 
-$(SAMPLES_PATH)/list_sample:
+$(SAMPLES_PATH)/list_sample: $(SRCDIRS)/list.cpp
 	@echo "-- Generating $@"
-	$(CXX) -g -std=c++11 -Wall -I../src list.cpp -o $@
+	$(CXX) $(CXXFLAGS) $(INCPATHS) -o $@ $^ $(LIBS)
 
 $(SAMPLES_PATH)/stack_sample: $(SRCDIRS)/stack.cpp
 	@echo "-- Generating $@"

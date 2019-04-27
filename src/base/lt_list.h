@@ -76,7 +76,7 @@ public:
      */
     LinkedPtr Get(int pos) const;
 
-    LinkedPtr Get(bool (*SearchFunc)(LinkedPtr node, const T &value)) const;
+    LinkedPtr Get(bool (*SearchFunc)(const T &, const T &), const T &val) const;
     /**
      * @brief 在链表头部插入新结点
      *
@@ -180,7 +180,12 @@ LinkNode<T> *List<T>::Get(int pos) const {
 }
 
 template<class T>
-LinkNode<T> *List<T>::Get(bool (*SearchFunc)(LinkNode<T> *node, const T &data)) const {
+LinkNode<T> *List<T>::Get(bool (*SearchFunc)(const T &, const T &), const T &val) const {
+    for (LinkedPtr p = head_->next; p != NULL; p = p->next) {
+        if (true == SearchFunc(p->data, val)) {
+            return p;
+        }
+    }
     return NULL;
 }
 
@@ -303,7 +308,7 @@ public:
      *
      * @return true 空 false 非空
      */
-    bool empty() const { return _M_node_->prev == _M_node_->next; }
+    bool empty() const { return _M_node_->next == _M_node_; }
     /**
      * @brief 链表长度
      *
@@ -375,8 +380,10 @@ DList<T>::~DList() {
 
 template<class T>
 void DList<T>::Clear() {
-    for (DoubleNode<T> *cur = front(); cur != tail(); cur = cur->next) {
+    for (DoubleNode<T> *cur = front(); cur != tail();) {
+        DoubleNode<T> *n = cur->next;
         Remove(cur);
+        cur = n;
     }
 }
 
