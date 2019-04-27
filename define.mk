@@ -17,7 +17,7 @@ AR := ar
 RANLIB := ranlib
 
 ## 编译器选项
-CFLAGS := -g Wall -fPIC
+CFLAGS := -g -Wall -fPIC
 CXXFLAGS := -g -Wall -std=c++11 -fPIC
 MYCFLAGS := -DDEBUG
 ARFLAGS := rcs
