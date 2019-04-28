@@ -29,30 +29,30 @@ int main(int argc, char *argv[])
     assert(que.empty() == true);
     assert(que.size() == 0);
     // push
-    que.push(100);
+    que.Push(100);
     assert(que.empty() == false);
     assert(que.size() == 1);
     // front && back
     assert(que.front() == 100);
     assert(que.back() == 100);
     // pop
-    int e = que.pop();
+    int e = que.Pop();
     assert(e == 100);
     assert(que.empty() == true);
     assert(que.size() == 0);
 
-    que.push(100);
-    que.push(200);
-    que.push(300);
-    que.push(400);
+    que.Push(100);
+    que.Push(200);
+    que.Push(300);
+    que.Push(400);
     assert(que.front() == 100);
     assert(que.back() == 400);
     assert(que.size() == 4);
-    assert(que.pop() == 100);
+    assert(que.Pop() == 100);
     assert(que.front() == 200);
     assert(que.size() == 3);
     // clear
-    que.clear();
+    que.Clear();
     assert(que.empty() == true);
     assert(que.size() == 0);
     try {
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     }
 
     try {
-        que.pop();
+        que.Pop();
     } catch (lt::Exception &e) {
         printf("%s\n", e.what());
     }

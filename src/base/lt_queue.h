@@ -56,7 +56,7 @@ namespace lt {
 //     *
 //     * @param elem
 //     */
-//    void push(const T &elem) {
+//    void Push(const T &elem) {
 //        qlist_.PushBack(elem);
 //    }
 //    /**
@@ -64,7 +64,7 @@ namespace lt {
 //     *
 //     * @return 
 //     */
-//    T pop() {
+//    T Pop() {
 //        return qlist_.PopFront();
 //    }
 //    /**
@@ -95,29 +95,48 @@ public:
     Queue ();
     virtual ~Queue ();
 
+    /**
+     * @brief 队列判空
+     *
+     * @return 
+     */
     bool empty() const { return front_ == rear_; }
+
+    /**
+     * @brief 返回队列长度
+     *
+     * @return 
+     */
     int  size() const { return size_; }
+
+    /**
+     * @brief 清空队列
+     */
     void Clear();
+
     /**
      * @brief 入队
      */
     void Push(const T &elem);
+
     /**
      * @brief 出队 对空队列操作，引发异常
      */
     T Pop();
+
     /**
      * @brief 取队头元素 对空队列操作，引发异常
      *
      * @return 队头元素
      */
     T &front() const;
+
     /**
      * @brief 取队尾元素 对空队列操作，引发异常
      *
      * @return 队尾元素
      */
-    T &tail() const;
+    T &back() const;
 
 private:
     LinkNode<T> *front_;
@@ -144,7 +163,7 @@ Queue<T>::~Queue() {
 }
 
 template<class T>
-void Queue<T>::clear() {
+void Queue<T>::Clear() {
     LinkNode<T> *p = front_->next;
     while (p) {
         LinkNode<T> *n = p->next;
@@ -156,7 +175,7 @@ void Queue<T>::clear() {
 }
 
 template<class T>
-void Queue<T>::push(const T &elem) {
+void Queue<T>::Push(const T &elem) {
     LinkNode<T> *s = new LinkNode<T>(elem);
     rear_->next = s;
     rear_ = s;
@@ -164,7 +183,7 @@ void Queue<T>::push(const T &elem) {
 }
 
 template<class T>
-T Queue<T>::pop() {
+T Queue<T>::Pop() {
     if (empty()) {
         std::ostringstream s;
         s << "EmptyQueue exception" << ", size = " << size_;
