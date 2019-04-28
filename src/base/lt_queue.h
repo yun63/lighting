@@ -50,14 +50,14 @@ namespace lt {
 //    /**
 //     * @brief 清空队列
 //     */
-//    void clear() const { return qlist_.clear(); }
+//    void clear() const { return qlist_.Clear(); }
 //    /**
 //     * @brief 入队列
 //     *
 //     * @param elem
 //     */
 //    void push(const T &elem) {
-//        qlist_.push_back(elem);
+//        qlist_.PushBack(elem);
 //    }
 //    /**
 //     * @brief 出队列
@@ -65,7 +65,7 @@ namespace lt {
 //     * @return 
 //     */
 //    T pop() {
-//        return qlist_.pop_front();
+//        return qlist_.PopFront();
 //    }
 //    /**
 //     * @brief 获取队列头部数据
@@ -73,7 +73,7 @@ namespace lt {
 //     * @return 
 //     */
 //    T front() const {
-//        return qlist_.get(1).data;
+//        return qlist_.Get(1).data;
 //    }
 //    /**
 //     * @brief 队尾数据
@@ -81,7 +81,7 @@ namespace lt {
 //     * @return 
 //     */
 //    T back() const {
-//        return qlist_.get(size()).data;
+//        return qlist_.Get(size()).data;
 //    }
 //
 //private:

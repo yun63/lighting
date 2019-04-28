@@ -8,23 +8,11 @@
  *
  * @file: lt_list.h
  *
- * @breaf: 单链表、双端链表及循环链表的实现
+ * @breaf: 单链表、双端循环链表的实现
  *
  * @author: Lei Yunfei(towardstheway@gmail.com)
  *
  * @create: 2017/03/11 00时21分09秒
- *
- * @modify: 
- *
- *  1. 循环链表的实现
- *
- *  @author: Lei Yunfei(towardstheway@gmail.com)
- *
- *  @date: 2017/06/16 15时25分58秒
- *
- *  2. 双端链表的实现
- *
- *  @author: Lei Yunfei(towardstheway@gmail.com)
  *
  **/
 
@@ -47,10 +35,13 @@ namespace lt {
 
 template<class T>
 class List : public noncopyable {
-    typedef LinkNode<T>* LinkedPtr;
 public:
+    typedef LinkNode<T>* LinkedPtr;
+
     List();
+
     virtual ~List();
+
     /**
      * @brief 判空
      *
@@ -59,6 +50,7 @@ public:
     bool empty() const {
         return size_ == 0;
     }
+
     /**
      * @brief 获得链表长度(只有头结点，链表长度定义为0)
      *
@@ -67,6 +59,14 @@ public:
     int size() const {
         return size_;
     }
+
+    /**
+     * @brief 获取头节点，如果链表为空，返回NULL
+     *
+     * @return 
+     */
+    LinkedPtr front() const { return head_->next; }
+
     /**
      * @brief 获取第pos个结点, 头结点定义为第0个结点
      *
@@ -76,31 +76,44 @@ public:
      */
     LinkedPtr Get(int pos) const;
 
+    /**
+     * @brief 获取符合特征的第一个节点，特征由回调函数描述
+     *
+     * @param SearchFunc 回调函数，描述节点的特征
+     * @param val 特征值
+     *
+     * @return  链表中符合特征的第一个点检
+     */
     LinkedPtr Get(bool (*SearchFunc)(const T &, const T &), const T &val) const;
+
     /**
      * @brief 在链表头部插入新结点
      *
      * @param elem
      */
     void PushFront(const T &elem);
+
     /**
      * @brief 摘除链表头部结点，并返回该结点的数据域
      *
      * @return 
      */
     T PopFront();
+
     /**
      * @brief 从列表尾部插入结点
      *
      * @param elem
      */
     void PushBack(const T &elem);
+
     /**
      * @brief 摘除链表尾部结点，并返回该结点的数据域
      *
      * @return 
      */
     T PopBack();
+
     /**
      * @brief 在指定位置pos后插入新结点
      *
@@ -108,12 +121,14 @@ public:
      * @param pos 插入的位置
      */
     void InsertAfter(const T &elem, int pos);
+
     /**
      * @brief 删除指定位置pos的结点，并返回结点的数据域
      *
      * @return 
      */
     T Remove(int pos);
+
     /**
      * @brief 删除指定范围【begin,end】的所有结点
      *
@@ -121,10 +136,12 @@ public:
      * @param end
      */
     void Remove(int begin, int end);
+
     /**
      * @brief 清空链表，并释放结点占用的空间
      */
     void Clear();
+
     /**
      * @brief 翻转单链表
      *
@@ -293,34 +310,38 @@ std::ostream &operator << (std::ostream &os, const List<T> &list) {
 
 
 /// 双端循环链表的实现, 类似于std::list
-
 template<class T>
 class DList : public noncopyable {
 public:
     DList();
     virtual ~DList();
+
     /**
      * @brief 清空链表，销毁结点, 单保留伪结点
      */
     void Clear();
+
     /**
      * @brief 双端链表判空
      *
      * @return true 空 false 非空
      */
     bool empty() const { return _M_node_->next == _M_node_; }
+
     /**
      * @brief 链表长度
      *
      * @return 
      */
     size_t size() const { return size_; }
+
     /**
      * @brief 返回链表头结点，类似于std::list中begin
      *
      * @return 
      */
     DoubleNode<T> *front() const { return _M_node_->next; }
+
     /**
      * @brief 返回链表尾结点，类似于std::list中的end
      *
@@ -335,18 +356,21 @@ public:
      * @param elem 新结点的数据域
      */
     void Insert(DoubleNode<T> *t, const T &elem);
+
     /**
      * @brief 在链表头部插入新结点
      *
      * @param elem 新结点的数据域
      */
     void PushFront(const T &elem);
+
     /**
      * @brief 在链表尾部附加新结点
      *
      * @param elem 新结点的数据域
      */
     void Append(const T &elem);
+
     /**
      * @brief 删除指定的结点
      *
