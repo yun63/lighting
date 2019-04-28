@@ -93,9 +93,10 @@ int main(int argc, char *argv[])
     printf("%zu\n", dlist.size());
     dlist.PushFront(100);
     assert(dlist.size() == 3);
-    assert(dlist.front()->data == 100);
+    assert(dlist.front() == 100);
+    assert(dlist.back() == 3);
     dlist.Clear();
-    assert(dlist.front() == dlist.tail());
+    assert(dlist.head() == dlist.tail());
     assert(dlist.empty());
     return 0;
 }

@@ -97,15 +97,15 @@ public:
 
     bool empty() const { return front_ == rear_; }
     int  size() const { return size_; }
-    void clear();
+    void Clear();
     /**
      * @brief 入队
      */
-    void push(const T &elem);
+    void Push(const T &elem);
     /**
      * @brief 出队 对空队列操作，引发异常
      */
-    T pop();
+    T Pop();
     /**
      * @brief 取队头元素 对空队列操作，引发异常
      *
@@ -117,7 +117,7 @@ public:
      *
      * @return 队尾元素
      */
-    T &back() const;
+    T &tail() const;
 
 private:
     LinkNode<T> *front_;

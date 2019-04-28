@@ -65,7 +65,14 @@ public:
      *
      * @return 
      */
-    LinkedPtr front() const { return head_->next; }
+    LinkedPtr head() const { return head_->next; }
+
+    /**
+     * @brief 获取第一个结点的数据域，如果链表为空，则返回一个默认值；
+     *
+     * @return 
+     */
+    T &front() const { return head_->next ? head_->next->data : T(); }
 
     /**
      * @brief 获取第pos个结点, 头结点定义为第0个结点
@@ -340,7 +347,7 @@ public:
      *
      * @return 
      */
-    DoubleNode<T> *front() const { return _M_node_->next; }
+    DoubleNode<T> *head() const { return _M_node_->next; }
 
     /**
      * @brief 返回链表尾结点，类似于std::list中的end
@@ -348,6 +355,20 @@ public:
      * @return 
      */
     DoubleNode<T> *tail() const { return _M_node_; }
+
+    /**
+     * @brief 返回头结点的数据域
+     *
+     * @return 
+     */
+    T &front() const { return _M_node_->next->data; }
+
+    /**
+     * @brief 返回最后一个结点的数据域，注意：最后一个结点是伪结点的前一个结点
+     *
+     * @return 
+     */
+    T &back() const { return _M_node_->prev->data; }
 
     /**
      * @brief 在指定结点位置前插入新结点
@@ -404,7 +425,7 @@ DList<T>::~DList() {
 
 template<class T>
 void DList<T>::Clear() {
-    for (DoubleNode<T> *cur = front(); cur != tail();) {
+    for (DoubleNode<T> *cur = head(); cur != tail();) {
         DoubleNode<T> *n = cur->next;
         Remove(cur);
         cur = n;
@@ -429,7 +450,7 @@ void DList<T>::Insert(DoubleNode<T> *t, const T &elem) {
 
 template<class T>
 void DList<T>::PushFront(const T &elem) {
-    Insert(front(), elem);
+    Insert(head(), elem);
 }
 
 template<class T>
