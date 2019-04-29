@@ -54,7 +54,7 @@ public:
 template<class T>
 class Stack : public noncopyable {
 public:
-    Stack () : Pop_(nullptr), size_(0) {}
+    Stack () : top_(nullptr), size_(0) {}
     virtual ~Stack ();
     /**
      * @brief 判空
@@ -99,7 +99,7 @@ private:
 
 template<class T>
 Stack<T>::~Stack() {
-    clear();
+    Clear();
 }
 
 template<class T>
