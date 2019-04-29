@@ -54,7 +54,7 @@ public:
 template<class T>
 class Stack : public noncopyable {
 public:
-    Stack () : top_(nullptr), size_(0) {}
+    Stack () : Pop_(nullptr), size_(0) {}
     virtual ~Stack ();
     /**
      * @brief 判空
@@ -73,23 +73,23 @@ public:
      *
      * @param elem
      */
-    void push(const T &elem);
+    void Push(const T &elem);
     /**
      * @brief 获取栈顶数据
      *
      * @return 
      */
-    T &top() const;
+    T &Top() const;
     /**
      * @brief 出栈
      *
      * @return 
      */
-    T pop();
+    T Pop();
     /**
      * @brief 清空栈
      */
-    void clear();
+    void Clear();
 
 private:
     lt::LinkNode<T> *top_;
@@ -103,13 +103,13 @@ Stack<T>::~Stack() {
 }
 
 template<class T>
-void Stack<T>::push(const T &elem) {
+void Stack<T>::Push(const T &elem) {
     top_ = new LinkNode<T>(elem, top_);
     ++size_;
 }
 
 template<class T>
-T &Stack<T>::top() const {
+T &Stack<T>::Top() const {
     if (empty()) {
         std::ostringstream s;
         s << "EmptyStack exception, size = " << size_;
@@ -119,7 +119,7 @@ T &Stack<T>::top() const {
 }
 
 template<class T>
-T Stack<T>::pop() {
+T Stack<T>::Pop() {
     if (empty()) {
         std::ostringstream s;
         s << "EmptyStack exception, size = " << size_;
@@ -134,7 +134,7 @@ T Stack<T>::pop() {
 }
 
 template<class T>
-void Stack<T>::clear() {
+void Stack<T>::Clear() {
     while (top_) {
         LinkNode<T> *p = top_->next;
         delete top_;
