@@ -175,7 +175,7 @@ void Queue<T>::Clear() {
 }
 
 template<class T>
-void Queue<T>::Push(const T &elem) {
+void Queue<T>::EnQueue(const T &elem) {
     LinkNode<T> *s = new LinkNode<T>(elem);
     rear_->next = s;
     rear_ = s;
@@ -183,7 +183,7 @@ void Queue<T>::Push(const T &elem) {
 }
 
 template<class T>
-T Queue<T>::Pop() {
+T Queue<T>::DeQueue() {
     if (empty()) {
         std::ostringstream s;
         s << "EmptyQueue exception" << ", size = " << size_;
