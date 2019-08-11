@@ -28,12 +28,12 @@ int main(int argc, char *argv[])
     lt::Stack<std::string> st;
     assert(st.empty() == true);
     assert(st.size() == 0);
-    st.push("hello");
+    st.Push("hello");
     assert(st.size() == 1);
-    st.push("world");
+    st.Push("world");
     assert(st.size() == 2);
-    assert(st.top() == "world");
-    std::string s = st.pop();
+    assert(st.Top() == "world");
+    std::string s = st.Pop();
     assert(s == "world");
     assert(st.size() == 1);
 
