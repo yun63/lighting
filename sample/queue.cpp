@@ -29,26 +29,26 @@ int main(int argc, char *argv[])
     assert(que.empty() == true);
     assert(que.size() == 0);
     // push
-    que.Push(100);
+    que.EnQueue(100);
     assert(que.empty() == false);
     assert(que.size() == 1);
     // front && back
     assert(que.front() == 100);
     assert(que.back() == 100);
     // pop
-    int e = que.Pop();
+    int e = que.DeQueue();
     assert(e == 100);
     assert(que.empty() == true);
     assert(que.size() == 0);
 
-    que.Push(100);
-    que.Push(200);
-    que.Push(300);
-    que.Push(400);
+    que.EnQueue(100);
+    que.EnQueue(200);
+    que.EnQueue(300);
+    que.EnQueue(400);
     assert(que.front() == 100);
     assert(que.back() == 400);
     assert(que.size() == 4);
-    assert(que.Pop() == 100);
+    assert(que.DeQueue() == 100);
     assert(que.front() == 200);
     assert(que.size() == 3);
     // clear
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     }
 
     try {
-        que.Pop();
+        que.DeQueue();
     } catch (lt::Exception &e) {
         printf("%s\n", e.what());
     }

@@ -117,12 +117,12 @@ public:
     /**
      * @brief 入队
      */
-    void Push(const T &elem);
+    void EnQueue(const T &elem);
 
     /**
      * @brief 出队 对空队列操作，引发异常
      */
-    T Pop();
+    T DeQueue();
 
     /**
      * @brief 取队头元素 对空队列操作，引发异常
