@@ -153,7 +153,6 @@ List<T> *MergeLinkList(const List<T> *l1, const List<T> *l2, List<T> *l) {
  * @param p 模式匹配串
  * @param next[]
  *
- * http://v.atob.site/kmp-next.html
  */
 void compute_nextval(const char *p, int next[]) {
     next[0] = -1;
@@ -171,6 +170,14 @@ void compute_nextval(const char *p, int next[]) {
         } else {
             k = next[k];
         }
+    }
+}
+
+void make_next(const char *pattern, int *next) {
+    int q, k;
+    int m = strlen(pattern);
+    for (q = 1, k = 0; q < m; q++) {
+
     }
 }
 

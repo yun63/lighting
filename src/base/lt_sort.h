@@ -44,7 +44,8 @@ public:
      *
      * @param arraylist  待排数据列
      */
-    template<typename T, typename Sequence = std::vector<T> >
+    template<typename T,
+             typename Sequence = std::vector<T>>
     static void
     InsertSort(Sequence &arraylist) {
         SortWrapper::InsertSort<T>(arraylist, std::less<T>());
@@ -98,7 +99,9 @@ public:
      * @param arraylist 待排数据列
      * @param comp 仿函数，用于比较两个待排元素的大小
      */
-    template<typename T, typename Sequence = std::vector<int>, typename CompPred>
+    template<typename T,
+             typename Sequence = std::vector<int>,
+             typename CompPred>
     static void
     MergeSort(Sequence &arraylist, CompPred comp) {
     }
@@ -108,7 +111,9 @@ public:
      * @param arraylist 待排数据列
      * @param comp 仿函数，用于比较两个待排元素的大小
      */
-    template<typename T, typename Sequence = std::vector<T>, typename CompPred>
+    template<typename T,
+             typename Sequence = std::vector<T>,
+             typename CompPred>
     static void
     ShellSort(vector<T> &arraylist, CompPred comp) {
     }
@@ -126,7 +131,7 @@ public:
     template<typename T, typename Sequence = std::vector<T> >
     static int 
     Partition(Sequence &arraylist, int begin, int end) {
-        int pivot = arraylist[begin];
+        T pivot = arraylist[begin];
         while (begin <= end) {
             while (begin <= end && arraylist[end] > pivot) {
                 --end;
@@ -146,7 +151,9 @@ public:
      * @param arraylist 待排数据列
      * @param comp 仿函数，用于比较两个待排元素的大小
      */
-    template<typename T, typename Sequence = std::vector<T>, typename CompPred>
+    template<typename T,
+             typename Sequence = std::vector<T>,
+             typename CompPred>
     static void
     QuickSort(Sequence &arraylist, CompPred comp) {
     }
