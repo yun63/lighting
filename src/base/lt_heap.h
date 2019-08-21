@@ -6,13 +6,13 @@
 
 /**
  *
- * @file: lt_btree.h
+ * @file: lt_heap.h
  *
- * @breaf: B-树和B+树的实现
+ * @breaf: 
  *
  * @author: Lei Yunfei(towardstheway@gmail.com)
  *
- * @create: 2017/04/19 12时24分50秒
+ * @create: 2019/08/21 18时26分26秒
  *
  **/
 

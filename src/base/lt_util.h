@@ -107,7 +107,7 @@ double atof(const char *s) {
 
     // 整数部分
     for (; isdigit(s[i]) && s[i] != '\0'; ) {
-        value = value + s[i] - '0';
+        value = 10 * value + s[i] - '0';
         ++i;
     }
     // 跳过小数点

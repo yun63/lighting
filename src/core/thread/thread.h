@@ -1,18 +1,18 @@
 /***************************************************************************
  *
- * Copyright © 2019 LT. All Rights Reserved.
+ * Copyright © 2016 LT. All Rights Reserved.
  *
  ***************************************************************************/
 
 /**
  *
- * @file: lt_btree.h
+ * @file: thread.h
  *
- * @breaf: B-树和B+树的实现
+ * @breaf: 
  *
  * @author: Lei Yunfei(towardstheway@gmail.com)
  *
- * @create: 2017/04/19 12时24分50秒
+ * @create: 2019/04/15 20时11分46秒
  *
  **/
 
